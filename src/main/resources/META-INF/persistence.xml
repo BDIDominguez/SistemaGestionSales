@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence           http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+  <persistence-unit name="SistemaGestionUP" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>entidades.Contacto</class>
+    <class>entidades.Correo</class>
+    <class>entidades.Direccion</class>
+    <class>entidades.Objeto</class>
+    <class>entidades.Permiso</class>
+    <class>entidades.Proveedor</class>
+    <class>entidades.Telefono</class>
+    <class>entidades.Usuario</class>
+    <class>entidades.Sucursal</class>
+    <class>entidades.Camion</class>
+    <class>entidades.Chofer</class>
+    <class>entidades.Cliente</class>
+    <class>entidades.Combustible</class>
+    <class>entidades.Entrega</class>
+    <class>entidades.Morro</class>
+    <properties>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sistemaGestion?zeroDateTimeBehavior=CONVERT_TO_NULL&amp;serverTimezone=America/Argentina/Buenos_Aires"/>
+      <property name="jakarta.persistence.jdbc.user" value="dario"/>
+      <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="jakarta.persistence.jdbc.password" value="Dario260983"/>
+      <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
+      <property name="eclipselink.jdbc.timezone" value="America/Argentina/Buenos_Aires"/>
+    </properties>
+  </persistence-unit>
+</persistence>
