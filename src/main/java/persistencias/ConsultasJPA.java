@@ -104,19 +104,20 @@ public class ConsultasJPA {
             }
         }
     }
-    public boolean existeFacturaCargaCombustible(String factura) {
+    public Combustible existeFacturaCargaCombustible(String factura) {
         em = getEntityManager();
         try {
             TypedQuery<Combustible> query = em.createNamedQuery("Combustible.findNumeroFactura", Combustible.class);
             query.setParameter("factura", factura);
-            boolean respuesta = false;
+            Combustible combu = new Combustible();
+            combu.setCodigo(-1);
             List<Combustible> lista = query.getResultList();
             for (Combustible combustible : lista) {
                 if (combustible.getEstado()){
-                    respuesta = true;
+                    combu = combustible;
                 }
             }
-            return respuesta;
+            return combu;
         } finally {
             if (em != null && em.isOpen()) {
                 em.close();

@@ -43,6 +43,7 @@ public class ControladorVistaCargaCombustible implements ActionListener, ListSel
     CombustiblesTableModel modelo = new CombustiblesTableModel();
     int codigoActual;
     DateTimeFormatter formato = DateTimeFormatter.ofPattern("HH:mm:ss"); // para darle formato a la hora que se va a usar en el txHora
+    DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     public ControladorVistaCargaCombustible(VistaPantallaPrincipal menu, VistaCargaCombustible vista, Usuario usuario, Objeto obj) {
         this.menu = menu;
@@ -54,7 +55,6 @@ public class ControladorVistaCargaCombustible implements ActionListener, ListSel
         vista.btEliminar.addActionListener(this);
         vista.btGuardar.addActionListener(this);
         vista.btNuevo.addActionListener(this);
-        
 
         vista.txHora.addFocusListener(this);
         vista.txFactura.addFocusListener(this);
@@ -62,10 +62,10 @@ public class ControladorVistaCargaCombustible implements ActionListener, ListSel
         vista.txEstacion.addFocusListener(this);
         vista.txLitros.addFocusListener(this);
         vista.txTipo.addFocusListener(this);
-        
+
         // jCalendars
         vista.dcFecha.addPropertyChangeListener("date", this);
-        
+
         // Agregando los Tabla a escuchar
         vista.tabla.getSelectionModel().addListSelectionListener(this);
 
@@ -81,7 +81,6 @@ public class ControladorVistaCargaCombustible implements ActionListener, ListSel
         vista.dcFecha.setDate(new Date());
         cargarCamiones();
         modelarTabla();
-        
 
     }
 
@@ -90,7 +89,7 @@ public class ControladorVistaCargaCombustible implements ActionListener, ListSel
         if (e.getSource() == vista.btNuevo) {
             if (comandos.tienePermiso(usuario, obj, "Crear")) {
                 vista.dcFecha.setDate(new Date());
-                vista.txHora.setText("HH:MM:SS");
+                vista.txHora.setText("00:00:00");
                 vista.txTipo.setText("Diesel");
                 vista.txImporte.setText("0.00");
                 vista.txLitros.setText("0.00");
@@ -106,61 +105,71 @@ public class ControladorVistaCargaCombustible implements ActionListener, ListSel
             }
         }
         if (e.getSource() == vista.btGuardar) {
+            Combustible combu = new Combustible();
+            Combustible existente = new Combustible();
             if (codigoActual == -1) {
                 if (comandos.tienePermiso(usuario, obj, "Crear")) {
-                    Combustible combu = new Combustible();
-                    combu.setCodigo(1);
-                    combu.setCamion((Camion) vista.cbCamion.getSelectedItem());
-                    combu.setEstacion(vista.txEstacion.getText());
-                    combu.setEstado(vista.chEstado.isSelected());
-                    combu.setFecha(vista.dcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                    combu.setHora(LocalTime.parse(vista.txHora.getText(), formato));
-                    combu.setImporte(Double.parseDouble(vista.txImporte.getText().replace(".", "").replace(",",".")));
-                    combu.setLitros(Double.parseDouble(vista.txLitros.getText().replace(".", "").replace(",",".")));
-                    combu.setNroFactura(vista.txFactura.getText());
-                    combu.setTipo(vista.txTipo.getText());
-                    ctrl.crearCombustible(combu);
-                    cargarTabla();
-                    codigoActual = combu.getCodigo();
-                    vista.btEliminar.setEnabled(true);
-                    vista.btGuardar.setEnabled(false);
-                    vista.btNuevo.setEnabled(true);
+                    existente = ctrl.existeFacturaCargaCombustible(vista.txFactura.getText());
+                    //if ((existente.getCodigo() == -1) || (existente.getCodigo() != -1 && !existente.getEstacion().equalsIgnoreCase(vista.txEstacion.getText()))) {
+                    if (existente.getCodigo() == -1) {
+                        combu = crearCombustible();
+                        combu.setCodigo(1);
+                        ctrl.crearCombustible(combu);
+                        cargarTabla();
+                        codigoActual = combu.getCodigo();
+                        vista.btEliminar.setEnabled(true);
+                        vista.btGuardar.setEnabled(false);
+                        vista.btNuevo.setEnabled(true);
+                    } else if (existente.getEstacion().equalsIgnoreCase(vista.txEstacion.getText())) {
+                        JOptionPane.showMessageDialog(vista, "Este comprobante parece haber sido ya cargado el dia " + existente.getFecha().format(dateFormatter));
+                        vista.txFactura.requestFocus();
+                    } else {
+                        combu = crearCombustible();
+                        combu.setCodigo(1);
+                        ctrl.crearCombustible(combu);
+                        cargarTabla();
+                        codigoActual = combu.getCodigo();
+                        vista.btEliminar.setEnabled(true);
+                        vista.btGuardar.setEnabled(false);
+                        vista.btNuevo.setEnabled(true);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(vista, "No tienes permiso para crear Nuevos");
                 }
             } else {
                 if (comandos.tienePermiso(usuario, obj, "Actualizar")) {
-                    Combustible combu = ctrl.traerCombustible(codigoActual);
-                    combu.setCamion((Camion) vista.cbCamion.getSelectedItem());
-                    combu.setEstacion(vista.txEstacion.getText());
-                    combu.setEstado(vista.chEstado.isSelected());
-                    combu.setFecha(vista.dcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                    combu.setHora(LocalTime.parse(vista.txHora.getText(),formato));
-                    combu.setImporte(Double.parseDouble(vista.txImporte.getText()));
-                    combu.setLitros(Double.parseDouble(vista.txImporte.getText()));
-                    if (!ctrl.existeFacturaCargaCombustible(vista.txFactura.getText())){
-                        combu.setNroFactura(vista.txFactura.getText());
-                        combu.setTipo(vista.txTipo.getText());
+                    combu = ctrl.traerCombustible(codigoActual);
+                    existente = ctrl.existeFacturaCargaCombustible(vista.txFactura.getText());
+                    if (existente.getCodigo() == -1){
+                        combu = crearCombustible();
                         ctrl.editarCombustible(combu);
                         cargarTabla();
+                        vista.btEliminar.setEnabled(true);
+                        vista.btGuardar.setEnabled(false);
+                        vista.btNuevo.setEnabled(true);
+                    }else if (!existente.getEstacion().equalsIgnoreCase(vista.txEstacion.getText()) && existente.getCodigo() != codigoActual ){
+                        combu = crearCombustible();
+                        ctrl.editarCombustible(combu);
+                        cargarTabla();
+                        vista.btEliminar.setEnabled(true);
+                        vista.btGuardar.setEnabled(false);
+                        vista.btNuevo.setEnabled(true);
                     }else{
-                        JOptionPane.showMessageDialog(vista, "Ese numero de Factura ya esta en uso en otro carga de Combustible!");
+                        JOptionPane.showMessageDialog(vista, "Este comprobante parece haber sido ya cargado el dia " + existente.getFecha().format(dateFormatter));
+                        vista.txFactura.requestFocus();
                     }
-                    vista.btEliminar.setEnabled(false);
-                    vista.btGuardar.setEnabled(false);
-                    vista.btNuevo.setEnabled(false);
                 } else {
                     JOptionPane.showMessageDialog(vista, "No tienes permiso para Modificar");
                 }
             }
         }
-        if (e.getSource() == vista.btEliminar){
-            if (usuario.getTipo() == EnumUsuario.SUPERADMIN){
+        if (e.getSource() == vista.btEliminar) {
+            if (usuario.getTipo() == EnumUsuario.SUPERADMIN) {
                 ctrl.eliminarCombustible(codigoActual);
-            }else{
+            } else {
                 if (comandos.tienePermiso(usuario, obj, "Borrar")) {
                     ctrl.eliminarCombustible(codigoActual);
-                }else{
+                } else {
                     JOptionPane.showMessageDialog(vista, "No tienes permiso para Borror registro");
                 }
             }
@@ -173,7 +182,6 @@ public class ControladorVistaCargaCombustible implements ActionListener, ListSel
         if (e.getSource() == vista.btSalir) {
             vista.dispose();
         }
-
     }
 
     @Override
@@ -181,7 +189,8 @@ public class ControladorVistaCargaCombustible implements ActionListener, ListSel
         if (!e.getValueIsAdjusting()) {
             int fila = vista.tabla.getSelectedRow();
             if (fila != -1) {
-                Combustible combu = modelo.getCombustibleAt(fila);
+                Combustible combu = modelo.getDatoAt(fila);
+                vista.btNuevo.setEnabled(true);
                 vista.btEliminar.setEnabled(true);
                 vista.btGuardar.setEnabled(true);
                 codigoActual = combu.getCodigo();
@@ -191,22 +200,26 @@ public class ControladorVistaCargaCombustible implements ActionListener, ListSel
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
+    public void keyTyped(KeyEvent e
+    ) {
 
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e
+    ) {
 
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent e
+    ) {
 
     }
 
     @Override
-    public void propertyChange(PropertyChangeEvent evt) {
+    public void propertyChange(PropertyChangeEvent evt
+    ) {
         if ("date".equals(evt.getPropertyName())) {
             cargarTabla();
             // Manejar el cambio de la fecha aquí
@@ -216,17 +229,31 @@ public class ControladorVistaCargaCombustible implements ActionListener, ListSel
 
     @Override
     public void focusGained(FocusEvent e) {
-        
+        if (e.getSource() == vista.cbCamion){
+            vista.cbCamion.showPopup();
+        }
+
     }
 
     @Override
-    public void focusLost(FocusEvent e) {
-        if (e.getSource() == vista.txFactura){
-            if (ctrl.existeFacturaCargaCombustible(vista.txFactura.getText())){
-                JOptionPane.showMessageDialog(vista, "Ese numero de Factura ya fue usado!!");
-                vista.txFactura.requestFocus();
-            }
-        }
+    public void focusLost(FocusEvent e
+    ) {
+
+    }
+
+    private Combustible crearCombustible() {
+        Combustible combu = new Combustible();
+        combu.setCamion((Camion) vista.cbCamion.getSelectedItem());
+        combu.setEstacion(vista.txEstacion.getText());
+        combu.setEstado(vista.chEstado.isSelected());
+        combu.setFecha(vista.dcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        combu.setHora(LocalTime.parse(vista.txHora.getText(), formato));
+        combu.setImporte(Double.parseDouble(vista.txImporte.getText().replace(".", "").replace(",", ".")));
+        combu.setLitros(Double.parseDouble(vista.txLitros.getText().replace(".", "").replace(",", ".")));
+        combu.setNroFactura(vista.txFactura.getText());
+        combu.setTipo(vista.txTipo.getText());
+        combu.setCodigo(codigoActual);
+        return combu;
     }
 
     private void cargarCamiones() {
@@ -256,16 +283,17 @@ public class ControladorVistaCargaCombustible implements ActionListener, ListSel
         for (Combustible combustible : lista) {
             modelo.agregarDato(combustible);
         }
-        vista.chEstado.setSelected(true);
-        vista.chEstado.setBackground(Color.GREEN);
+        cargaCheckEstado(true);
     }
 
     private void cargaCheckEstado(boolean b) {
         vista.chEstado.setSelected(b);
         if (b) {
             vista.chEstado.setBackground(Color.GREEN);
+            vista.chEstado.setText("Cargado / Correcto");
         } else {
             vista.chEstado.setBackground(Color.RED);
+            vista.chEstado.setText("Marcado Como Eliminado");
         }
     }
 
@@ -273,12 +301,17 @@ public class ControladorVistaCargaCombustible implements ActionListener, ListSel
         vista.cbCamion.setSelectedItem(combu.getCamion());
         vista.txFactura.setText(combu.getNroFactura());
         vista.txEstacion.setText(combu.getEstacion());
-        vista.txHora.setText(combu.getHora().toString());
+        // Define el formato que deseas (con segundos)
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        vista.txHora.setText(combu.getHora().format(formatter));
         DecimalFormat formato = new DecimalFormat("#,##0.00");
         vista.txImporte.setText(formato.format(combu.getImporte()));
         vista.txLitros.setText(formato.format(combu.getLitros()));
         vista.txTipo.setText(combu.getTipo());
+        cargaCheckEstado(combu.getEstado());
     }
+    
+   
 
 }
 
@@ -321,8 +354,8 @@ class CombustiblesTableModel extends AbstractTableModel {
                 return null;
         }
     }
-    
-    public Combustible getCombustibleAt(int row) {
+
+    public Combustible getDatoAt(int row) {
         return entregas.get(row);
     }
 
@@ -346,6 +379,7 @@ class CombustiblesTableModel extends AbstractTableModel {
         // Notifica a la tabla que la fila ha sido actualizada
         fireTableRowsUpdated(fila, fila);
     }
+
     private String formatearImporte(double importe) {
         DecimalFormat formato = new DecimalFormat("#,##0.00");
         return formato.format(importe);

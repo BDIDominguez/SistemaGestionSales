@@ -4,7 +4,9 @@ import controladores.ControladorVistaMorros;
 import entidades.ComandosComunes;
 import entidades.Controladora;
 import entidades.Objeto;
+import entidades.Combustible;
 import entidades.Usuario;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JFrame;
 import vistas.VistaCargaCombustible;
 import vistas.VistaCargaMorros;
@@ -15,7 +17,7 @@ public class PruebaVista {
     static VistaPantallaPrincipal menu = new VistaPantallaPrincipal();
     static ComandosComunes comandos = new ComandosComunes();
     static Controladora ctrl = new Controladora();
-    static Usuario usuario = ctrl.traerUsuario(2);
+    static Usuario usuario = ctrl.traerUsuario(1);
     
     
     public static void main(String[] args) {
@@ -41,6 +43,14 @@ public class PruebaVista {
         menu.fondo.moveToFront(vista);
         vista.requestFocus();
         */
+        /*
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        Combustible combu = new Combustible();
+        combu = ctrl.traerCombustible(7);
+        System.out.println("Hora " + combu.getHora().format(formatter));
+        System.out.println("Hora " + combu.getHora().toString());
+        */
+        
     }
     
 }

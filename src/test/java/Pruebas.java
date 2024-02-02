@@ -24,38 +24,30 @@ import java.util.logging.Logger;
  */
 public class Pruebas {
     public static void main(String[] args) {
-       String sucursal;
-        String numero;
-        String cadena = "2-56789";
-        if (cadena.contains("-")) {
-            String[] comp = cadena.split("-");
-            sucursal = comp[0];
-            int cantidadDeCeros = 4 - sucursal.length();
-            if (cantidadDeCeros > 0) {
-                sucursal = String.format("%0" + cantidadDeCeros + "d%s", 0, sucursal);
-            } else if (cantidadDeCeros < 0) {
-                sucursal = sucursal.substring(0, 3);
-            }
-            numero = comp[1];
-            cantidadDeCeros = 8 - numero.length();
-            if (cantidadDeCeros > 0) {
-                numero = String.format("%0" + cantidadDeCeros + "d%s", 0, numero);
-            } else if (cantidadDeCeros < 0) {
-                numero = numero.substring(0, 8);
-            }
-            cadena = sucursal + "-" + numero;
-        }else{
-            sucursal = "0001";
-            int cantidadDeCeros = 8 - cadena.length();
-            if (cantidadDeCeros > 0) {
-                numero = String.format("%0" + cantidadDeCeros + "d%s", 0, cadena);
-            } else if (cantidadDeCeros < 0) {
-                numero = cadena.substring(0, 8);
-            } else {
-                numero = cadena;
-            }
-            cadena = sucursal + "-" + numero;
+        String cadena = "1550";
+        cadena = cadena.replace(":","");
+        if (cadena.length() == 1){
+            cadena = "0" + cadena;
         }
-        System.out.println("Formato de Hora: " + cadena);
+        int cantidad = 6 - cadena.length();
+        if (cantidad > 0){
+            cadena = String.format("%s%0" + cantidad + "d", cadena, 0);
+        }else if(cantidad < 0){
+            cadena = cadena.substring(0,6);
+        }
+        String hora = cadena.substring(0,2);
+        String minutos = cadena.substring(2,4);
+        String segundos = cadena.substring(4,6);
+        if (Integer.parseInt(hora) > 24){
+            hora = "00";
+        }
+        if (Integer.parseInt(minutos) > 59 || hora.equalsIgnoreCase("24")){
+            minutos = "00";
+        }
+        if (Integer.parseInt(segundos)> 59 || hora.equalsIgnoreCase("24")){
+            segundos = "00";
+        }
+        cadena = hora + minutos + segundos;
+        System.out.println("Hora sin Formato: " + cadena);
     }
 }

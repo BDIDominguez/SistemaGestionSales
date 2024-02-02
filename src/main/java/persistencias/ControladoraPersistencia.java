@@ -67,7 +67,7 @@ public class ControladoraPersistencia {
     public List<Combustible> traerCargasCombustiblesConFecha(LocalDate fecha){
         return consultasJpa.traerCargasCombustiblesConFecha(fecha);
     }
-    public boolean existeFacturaCargaCombustible(String factura){
+    public Combustible existeFacturaCargaCombustible(String factura){
         return consultasJpa.existeFacturaCargaCombustible(factura);
     }
 

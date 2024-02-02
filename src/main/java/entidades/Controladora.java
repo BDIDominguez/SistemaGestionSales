@@ -20,7 +20,7 @@ public class Controladora {
     public List<Combustible> traerCargasCombustiblesConFecha(LocalDate fecha){
         return ctrl.traerCargasCombustiblesConFecha(fecha);
     }
-    public boolean existeFacturaCargaCombustible(String factura){
+    public Combustible existeFacturaCargaCombustible(String factura){
         return ctrl.existeFacturaCargaCombustible(factura);
     }
     
