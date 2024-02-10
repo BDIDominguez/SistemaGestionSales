@@ -23,6 +23,12 @@ public class Controladora {
     public Combustible existeFacturaCargaCombustible(String factura){
         return ctrl.existeFacturaCargaCombustible(factura);
     }
+    public List<CargaMorro> traerCargasMorroConFecha(LocalDate fecha){
+        return ctrl.traerCargasMorroConFecha(fecha);
+    }
+    public List<CargaMorro> traerCargasMorroConFechaMorro(LocalDate fecha, int codigo){
+        return ctrl.traerCargasMorroConFechaMorro(fecha,codigo);
+    }
     
     // -----------------   OBJETO ------------------
     public void crearObjeto(Objeto obj){
@@ -46,8 +52,24 @@ public class Controladora {
     public List<Objeto> traerListaObjetos(){
         return ctrl.traerListaObjetos();
     }
+    // -----------------   OBJETO ------------------
+    public void crearCargaMorro(CargaMorro obj){
+        ctrl.crearCargaMorro(obj);
+    }
+    public void eliminarCargaMorro(int id){
+        ctrl.eliminarCargaMorro(id);
+    }
+    public void editarCargaMorro(CargaMorro obj){
+        ctrl.editarCargaMorro(obj);
+    }
+    public CargaMorro traerCargaMorro(int id){
+        return ctrl.traerCargaMorro(id);
+    }
+    public List<CargaMorro> traerListaCargaMorros(){
+        return ctrl.traerListaCargaMorros();
+    }
     
-    // -----------------   OBVJETO ------------------
+    // -----------------   PERMISO   ------------------
     public void crearPermiso(Permiso per){
         ctrl.crearPermiso(per);
     }

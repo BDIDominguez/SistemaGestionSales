@@ -1,5 +1,6 @@
 package persistencias;
 
+import entidades.CargaMorro;
 import entidades.Combustible;
 import entidades.Entrega;
 import jakarta.persistence.EntityManager;
@@ -104,6 +105,7 @@ public class ConsultasJPA {
             }
         }
     }
+    
     public Combustible existeFacturaCargaCombustible(String factura) {
         em = getEntityManager();
         try {
@@ -124,6 +126,30 @@ public class ConsultasJPA {
             }
         }
     }
-    
+    public List<CargaMorro> traerCargasMorroConFecha(LocalDate fecha) {
+        em = getEntityManager();
+        try {
+            TypedQuery<CargaMorro> query = em.createNamedQuery("CargaMorro.findByFecha", CargaMorro.class);
+            query.setParameter("fecha", fecha);
+            return query.getResultList();
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+    public List<CargaMorro> traerCargasMorroConFechaMorro(LocalDate fecha, int codigo) {
+        em = getEntityManager();
+        try {
+            TypedQuery<CargaMorro> query = em.createNamedQuery("CargaMorro.findByFechaMorro", CargaMorro.class);
+            query.setParameter("fecha", fecha);
+            query.setParameter("codigo", codigo);
+            return query.getResultList();
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+    }
 
 }

@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 import vistas.VistaCargaCombustible;
+import vistas.VistaCargaMorros;
 import vistas.VistaEntregas;
 import vistas.VistaInicioSesion;
 import vistas.VistaMorros;
@@ -46,6 +47,7 @@ public class ControladorVistaPantallaPrincipal implements ActionListener, MenuLi
         // Items del menu Morros
         menu.itemMorros.addActionListener(this);
         menu.itemEntregas.addActionListener(this);
+        menu.itemCargaDiariaMorros.addActionListener(this);
         
         // Items del menu Combustibles
         menu.itemCargaCombustibles.addActionListener(this);
@@ -134,6 +136,17 @@ public class ControladorVistaPantallaPrincipal implements ActionListener, MenuLi
                 VistaCargaCombustible vista = new VistaCargaCombustible();
                 ControladorVistaCargaCombustible ctrl = new ControladorVistaCargaCombustible(menu, vista, usuario, obj);
                 ctrl.iniciar();
+            } else {
+                JOptionPane.showMessageDialog(menu, "No tienes permiso para ver estas pantalla!!!");
+            }
+        }
+        
+        if (e.getSource() == menu.itemCargaDiariaMorros){
+            Objeto obj = ctrl.traerObjeto(9);
+            if (comandos.tienePermiso(usuario, obj, "Ingresar")) {
+                VistaCargaMorros vista = new VistaCargaMorros();
+                ControladorVistaCargaMorros trl = new ControladorVistaCargaMorros(menu, vista, comandos,usuario,ctrl,obj);
+                trl.iniciar();
             } else {
                 JOptionPane.showMessageDialog(menu, "No tienes permiso para ver estas pantalla!!!");
             }

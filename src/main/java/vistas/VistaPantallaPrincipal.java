@@ -23,6 +23,7 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         itemEntregas = new javax.swing.JMenuItem();
         itemMorros = new javax.swing.JMenuItem();
+        itemCargaDiariaMorros = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         itemCargaCombustibles = new javax.swing.JMenuItem();
 
@@ -81,6 +82,9 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
         itemMorros.setText("Morros");
         jMenu1.add(itemMorros);
 
+        itemCargaDiariaMorros.setText("Producción Diaria");
+        jMenu1.add(itemCargaDiariaMorros);
+
         jMenuBar1.add(jMenu1);
 
         jMenu3.setText("Combustibles");
@@ -138,6 +142,7 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
     public javax.swing.JDesktopPane fondo;
     public javax.swing.JMenuItem itemCambiarUsuario;
     public javax.swing.JMenuItem itemCargaCombustibles;
+    public javax.swing.JMenuItem itemCargaDiariaMorros;
     public javax.swing.JMenuItem itemEntregas;
     public javax.swing.JMenuItem itemMorros;
     public javax.swing.JMenuItem itemObjetos;

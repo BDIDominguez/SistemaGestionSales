@@ -1,6 +1,7 @@
 package persistencias;
 
 import entidades.Camion;
+import entidades.CargaMorro;
 import entidades.Chofer;
 import entidades.Cliente;
 import entidades.Combustible;
@@ -40,6 +41,7 @@ public class ControladoraPersistencia {
     EntregaJpaController entregaJpa;
     MorroJpaController morroJpa;
     ConsultasJPA consultasJpa;
+    CargaMorroJpaController cargaMorroJpa;
 
     public ControladoraPersistencia() {
         EntityManagerFactory emf = getEntityManagerFactory();
@@ -54,6 +56,7 @@ public class ControladoraPersistencia {
         entregaJpa = new EntregaJpaController(emf);
         morroJpa = new MorroJpaController(emf);
         consultasJpa = new ConsultasJPA(emf);
+        cargaMorroJpa = new CargaMorroJpaController(emf);
     
     }
     // ----------------- OTRAS CONSULTAS -------------
@@ -69,6 +72,12 @@ public class ControladoraPersistencia {
     }
     public Combustible existeFacturaCargaCombustible(String factura){
         return consultasJpa.existeFacturaCargaCombustible(factura);
+    }
+    public List<CargaMorro> traerCargasMorroConFecha(LocalDate fecha){
+        return consultasJpa.traerCargasMorroConFecha(fecha);
+    }
+    public List<CargaMorro> traerCargasMorroConFechaMorro(LocalDate fecha, int codigo){
+        return consultasJpa.traerCargasMorroConFechaMorro(fecha,codigo);
     }
 
     // -----------------   OBJETO ------------------
@@ -99,6 +108,35 @@ public class ControladoraPersistencia {
     public List<Objeto> traerListaObjetos() {
         return objJpa.findObjetoEntities();
     }
+    
+    // -----------------   CargaMorro ------------------
+    public void crearCargaMorro(CargaMorro obj) {
+        cargaMorroJpa.create(obj);
+    }
+
+    public void eliminarCargaMorro(int id) {
+        try {
+            cargaMorroJpa.destroy(id);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void editarCargaMorro(CargaMorro obj) {
+        try {
+            cargaMorroJpa.edit(obj);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public CargaMorro traerCargaMorro(int id) {
+        return cargaMorroJpa.findCargaMorro(id);
+    }
+
+    public List<CargaMorro> traerListaCargaMorros() {
+        return cargaMorroJpa.findCargaMorroEntities();
+    }
 
     // -----------------   PERMISO ------------------
     public void crearPermiso(Permiso per) {
@@ -128,6 +166,7 @@ public class ControladoraPersistencia {
     public List<Permiso> traerListaPermisos() {
         return perJpa.findPermisoEntities();
     }
+    
 
     // -----------------   USUARIOS   ------------------
     public void crearUsuario(Usuario user) {

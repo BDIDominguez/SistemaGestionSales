@@ -5,7 +5,9 @@ import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
+import java.text.ParseException;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class MiCampoDouble extends JTextField {
 
@@ -13,6 +15,8 @@ public class MiCampoDouble extends JTextField {
 
     public MiCampoDouble() {
         super();
+        setHorizontalAlignment(SwingConstants.RIGHT);
+        super.setText("0,00");
 
         addKeyListener(new KeyAdapter() {
             @Override
@@ -68,7 +72,39 @@ public class MiCampoDouble extends JTextField {
             double numero = Double.parseDouble(texto);
             setText(formatoDecimal.format(numero));
         } catch (NumberFormatException ex) {
-            setText("0.00");
+            setText("0,00");
         }
     }
+    
+    public String getTextFormateado() {
+        return formatoDecimal.format(getValorDouble());
+    }
+
+    public double getValorDouble() {
+        try {
+            String texto = getText();
+            if (texto.contains(",")){
+                texto = texto.replace(".", "").replace(",", ".");
+            }
+            return Double.parseDouble(texto);
+        } catch (NumberFormatException ex) {
+            return 0.00;
+        }
+    }
+    
+    @Override
+    public void setText(String texto) {
+        texto = texto.replaceAll("[^0-9.,]", "");
+        if (texto.contains(",")) {
+            texto = texto.replace(".", "").replace(",", ".");
+        }
+        double numero = Double.parseDouble(texto);
+        texto = String.format("%.2f",numero);
+        try {
+            super.setText(formatoDecimal.format(formatoDecimal.parse(texto.replace(".","")).doubleValue()));
+        } catch (ParseException ex) {
+            super.setText(texto);
+        }
+    }
+
 }

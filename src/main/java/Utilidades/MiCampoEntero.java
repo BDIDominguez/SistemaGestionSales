@@ -6,12 +6,14 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class MiCampoEntero extends JTextField {
     private static final DecimalFormat formatoEntero = new DecimalFormat("#,##0");
 
     public MiCampoEntero() {
         super();
+        setHorizontalAlignment(SwingConstants.RIGHT);
 
         addKeyListener(new KeyAdapter() {
             @Override

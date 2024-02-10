@@ -63,4 +63,42 @@ public class Morro implements Serializable {
     public int hashCode(){
         return Objects.hash(codigo);
     }
+
+    public void agregarAlMorro(double total, double dpileta, double dbarrido) {
+        this.stock = this.stock + total;
+        agregarBarrido(dbarrido);
+        agregarPileta(dpileta);
+        if (this.pileta > 5000000000000.0 || this.barrido > 5000000000000.0){ // Si alguno de los dos supera este monto se recalculara los valoes minimos para mantener el % de cada uno
+            recalcularBarridoPileta();
+        }
+    }
+
+    public void quitarDelMorro(double total, double dpileta, double dbarrido) {
+        this.stock = stock - total;
+        quitarBarrido(dbarrido);
+        quitarPileta(dpileta);
+    }
+    
+    private void agregarBarrido(double cantidad){
+        this.barrido = this.barrido + cantidad;
+    }
+    private void agregarPileta(double cantidad){
+        this.pileta = this.pileta + cantidad;
+    }
+    private void quitarBarrido(double cantidad){
+        this.barrido = this.barrido - cantidad;
+    }
+    private void quitarPileta(double cantidad){
+        this.pileta = this.pileta - cantidad;
+    }
+    
+    public void recalcularBarridoPileta(){
+        double total =  this.barrido + this.pileta;
+        double porBarrido = (this.barrido * 100 )/ total;
+        double porPileta = (this.pileta * 100 )/ total;
+        double nuevaPileta = (porPileta * 10 )/ 100;
+        double nuevaBarrido = (porBarrido * 10 )/ 100;
+        this.barrido = nuevaBarrido;
+        this.pileta = nuevaPileta;
+    }
 }

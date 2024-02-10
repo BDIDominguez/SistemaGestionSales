@@ -17,6 +17,7 @@
     <class>entidades.Combustible</class>
     <class>entidades.Entrega</class>
     <class>entidades.Morro</class>
+    <class>entidades.CargaMorro</class>
     <properties>
       <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sistemaGestion?zeroDateTimeBehavior=CONVERT_TO_NULL&amp;serverTimezone=America/Argentina/Buenos_Aires"/>
       <property name="jakarta.persistence.jdbc.user" value="dario"/>

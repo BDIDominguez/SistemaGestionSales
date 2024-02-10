@@ -1,5 +1,6 @@
 
 import controladores.ControladorVistaCargaCombustible;
+import controladores.ControladorVistaCargaMorros;
 import controladores.ControladorVistaMorros;
 import entidades.ComandosComunes;
 import entidades.Controladora;
@@ -8,6 +9,7 @@ import entidades.Combustible;
 import entidades.Usuario;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import vistas.VistaCargaCombustible;
 import vistas.VistaCargaMorros;
 import vistas.VistaMorros;
@@ -31,10 +33,12 @@ public class PruebaVista {
         ControladorVistaMorros control= new ControladorVistaMorros(menu, vista, usuario, obj);
         */
         
+        /*
         Objeto obj = ctrl.traerObjeto(8);
         VistaCargaCombustible vista = new VistaCargaCombustible();
         ControladorVistaCargaCombustible control= new ControladorVistaCargaCombustible(menu, vista, usuario, obj);
         control.iniciar();
+        */
         
         /*
         VistaCargaMorros vista = new VistaCargaMorros();
@@ -43,13 +47,12 @@ public class PruebaVista {
         menu.fondo.moveToFront(vista);
         vista.requestFocus();
         */
-        /*
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        Combustible combu = new Combustible();
-        combu = ctrl.traerCombustible(7);
-        System.out.println("Hora " + combu.getHora().format(formatter));
-        System.out.println("Hora " + combu.getHora().toString());
-        */
+       
+         Objeto obj = ctrl.traerObjeto(9);
+         VistaCargaMorros vista = new VistaCargaMorros();
+         ControladorVistaCargaMorros control = new ControladorVistaCargaMorros(menu, vista, comandos,usuario,ctrl,obj);
+         control.iniciar();
+         
         
     }
     

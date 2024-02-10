@@ -168,7 +168,10 @@ public class ControladorVistaCargaCombustible implements ActionListener, ListSel
                 ctrl.eliminarCombustible(codigoActual);
             } else {
                 if (comandos.tienePermiso(usuario, obj, "Borrar")) {
-                    ctrl.eliminarCombustible(codigoActual);
+                    Combustible combu = ctrl.traerCombustible(codigoActual);
+                    combu.setEstado(false);
+                    ctrl.editarCombustible(combu);
+                    cargarTabla();
                 } else {
                     JOptionPane.showMessageDialog(vista, "No tienes permiso para Borror registro");
                 }
