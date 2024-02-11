@@ -33,14 +33,10 @@ public class Camion implements Serializable {
     Chofer chofer;
     @OneToMany(mappedBy = "camion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Combustible> cargas;
-    
-    
-    
     @OneToMany(mappedBy = "camion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Entrega> entregas;
     Boolean estado;
-    
-    
+        
     @Override
     public String toString() {
         return patente ;

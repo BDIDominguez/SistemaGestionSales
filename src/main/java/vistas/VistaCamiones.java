@@ -49,6 +49,7 @@ public class VistaCamiones extends javax.swing.JInternalFrame {
         jLabel1.setText("Codigo");
 
         txCodigo.setEditable(false);
+        txCodigo.setFocusable(false);
 
         jLabel2.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         jLabel2.setText("Patente");
@@ -58,6 +59,9 @@ public class VistaCamiones extends javax.swing.JInternalFrame {
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 15)); // NOI18N
         jLabel4.setText("Dist. Teorica");
+
+        txTeorico.setEditable(false);
+        txTeorico.setFocusable(false);
 
         btGuardar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         btGuardar.setText("Guardar");

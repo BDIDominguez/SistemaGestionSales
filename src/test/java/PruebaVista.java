@@ -1,4 +1,5 @@
 
+import controladores.ControladorVistaCamiones;
 import controladores.ControladorVistaCargaCombustible;
 import controladores.ControladorVistaCargaMorros;
 import controladores.ControladorVistaConfirmarEntregas;
@@ -11,6 +12,7 @@ import entidades.Usuario;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import vistas.VistaCamiones;
 import vistas.VistaCargaCombustible;
 import vistas.VistaCargaMorros;
 import vistas.VistaConfirmarEntregas;
@@ -55,11 +57,17 @@ public class PruebaVista {
         ControladorVistaCargaMorros control = new ControladorVistaCargaMorros(menu, vista, comandos,usuario,ctrl,obj);
         control.iniciar();
         */
-        
+        /*
         Objeto obj = ctrl.traerObjeto(10);
         VistaConfirmarEntregas vista = new VistaConfirmarEntregas();
         ControladorVistaConfirmarEntregas control = new ControladorVistaConfirmarEntregas(menu, vista, comandos, usuario ,ctrl, obj);
         control.iniciar();
+        */
+        Objeto obj = ctrl.traerObjeto(11);
+        VistaCamiones vista = new VistaCamiones();
+        ControladorVistaCamiones control = new ControladorVistaCamiones(menu, vista, comandos, usuario ,ctrl, obj);
+        control.iniciar();
+        
     }
     
 }

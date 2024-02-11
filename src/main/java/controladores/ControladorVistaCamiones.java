@@ -3,6 +3,7 @@ package controladores;
 import entidades.Camion;
 import entidades.ComandosComunes;
 import entidades.Controladora;
+import entidades.EnumUsuario;
 import entidades.Objeto;
 import entidades.Usuario;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,7 @@ import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -20,9 +22,8 @@ import javax.swing.table.AbstractTableModel;
 import vistas.VistaCamiones;
 import vistas.VistaPantallaPrincipal;
 
+public class ControladorVistaCamiones implements ActionListener, ListSelectionListener, PropertyChangeListener {
 
-
-public class ControladorVistaCamiones implements ActionListener, ListSelectionListener, PropertyChangeListener{
     VistaPantallaPrincipal menu;
     VistaCamiones vista;
     ComandosComunes comandos;
@@ -30,6 +31,7 @@ public class ControladorVistaCamiones implements ActionListener, ListSelectionLi
     Controladora ctrl;
     Objeto obj;
     CamionesTableModel modelo = new CamionesTableModel();
+    Camion camionActual;
 
     public ControladorVistaCamiones(VistaPantallaPrincipal menu, VistaCamiones vista, ComandosComunes comandos, Usuario usuario, Controladora ctrl, Objeto obj) {
         this.menu = menu;
@@ -38,17 +40,18 @@ public class ControladorVistaCamiones implements ActionListener, ListSelectionLi
         this.usuario = usuario;
         this.ctrl = ctrl;
         this.obj = obj;
-        
+
         // Escuchando los Botones
         vista.btSalir.addActionListener(this);
         vista.btEliminar.addActionListener(this);
         vista.btGuardar.addActionListener(this);
         vista.btNuevo.addActionListener(this);
-        
-         // Agregando los Tabla a escuchar
+
+        // Agregando los Tabla a escuchar
         vista.tabla.getSelectionModel().addListSelectionListener(this);
-        
+
     }
+
     public void iniciar() {
         menu.fondo.add(vista);
         vista.setVisible(true);
@@ -57,22 +60,119 @@ public class ControladorVistaCamiones implements ActionListener, ListSelectionLi
         vista.btGuardar.setEnabled(false);
         vista.btEliminar.setEnabled(false);
         configuraTabla();
-        
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        if (e.getSource() == vista.btSalir) {
+            vista.dispose();
+        }
+        if (e.getSource() == vista.btNuevo) {
+            if (comandos.tienePermiso(usuario, obj, "Crear")) {
+                camionActual = null;
+                vista.txCodigo.setText("-1");
+                vista.txPatente.setText("");
+                vista.txOdometro.setText("0,00");
+                vista.txTeorico.setText("0,00");
+                vista.chEstado.setSelected(true);
+                vista.btNuevo.setEnabled(false);
+                vista.btGuardar.setEnabled(true);
+                vista.btEliminar.setEnabled(false);
+                vista.txPatente.requestFocus();
+            } else {
+                JOptionPane.showMessageDialog(vista, "No tienes permiso para Crear nuevos Camiones");
+            }
+        }
+        if (e.getSource() == vista.btGuardar) {
+            if (camionActual == null) {
+                if (comandos.tienePermiso(usuario, obj, "Crear")) {
+                    Camion camion = crearCamion();
+                    camion.setTeorico(camion.getOdometro());
+                    ctrl.crearCamion(camion);
+                    vista.btNuevo.setEnabled(true);
+                    vista.btGuardar.setEnabled(false);
+                    vista.btEliminar.setEnabled(false);
+                    cargarTabla();
+                } else {
+                    JOptionPane.showMessageDialog(vista, "No tienes permiso para Crear nuevos Camiones");
+                }
+            }else{
+                if (comandos.tienePermiso(usuario, obj, "Actualizar")) {
+                    Camion camion = crearCamion();
+                    if (camionActual.getCargas() != null){
+                        camion.setCargas(camionActual.getCargas());
+                    }
+                    if (camionActual.getChofer() != null){
+                        camion.setChofer(camionActual.getChofer());
+                    }
+                    if (camionActual.getEntregas() != null){
+                        camion.setEntregas(camionActual.getEntregas());
+                    }
+                    ctrl.editarCamion(camion);
+                    vista.btNuevo.setEnabled(true);
+                    vista.btGuardar.setEnabled(false);
+                    vista.btEliminar.setEnabled(false);
+                    cargarTabla();
+                } else {
+                    JOptionPane.showMessageDialog(vista, "No tienes permiso para Actualizar los Camiones");
+                }
+            }
+        }
+
+        if (e.getSource() == vista.btEliminar) {
+            if (usuario.getTipo() == EnumUsuario.SUPERADMIN) {
+                ctrl.eliminarCamion(camionActual.getCodigo()); // Si se elimina correctamente se debe corregir el Stock en el morro
+                cargarTabla();
+                vista.btEliminar.setEnabled(false);
+                vista.btGuardar.setEnabled(false);
+                vista.btNuevo.setEnabled(true);
+                cargarTabla();
+            } else {
+                if (comandos.tienePermiso(usuario, obj, "Borrar")) {
+                    camionActual.setEstado(Boolean.FALSE);
+                    vista.btEliminar.setEnabled(false);
+                    vista.btGuardar.setEnabled(false);
+                    vista.btNuevo.setEnabled(true);
+                    cargarTabla();
+                } else {
+                    JOptionPane.showMessageDialog(vista, "No tienes permiso para Borror registro");
+                }
+            }
+        }
     }
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-
+        if (!e.getValueIsAdjusting()) {
+            int fila = vista.tabla.getSelectedRow();
+            if (fila != -1) {
+                camionActual = modelo.getDatoAt(fila);
+                vista.btNuevo.setEnabled(true);
+                vista.btEliminar.setEnabled(true);
+                vista.btGuardar.setEnabled(true);
+                mostrarCamion();
+            }
+        }
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        
+
+    }
+
+    private Camion crearCamion() {
+        Camion camion = new Camion();
+        if (camionActual == null) {
+            camion.setCodigo(1);
+        } else {
+            camion.setCodigo(camionActual.getCodigo());
+        }
+        camion.setPatente(vista.txPatente.getText().toUpperCase());
+        camion.setOdometro(vista.txOdometro.getValorDouble());
+        camion.setTeorico(vista.txTeorico.getValorDouble());
+        camion.setEstado(vista.chEstado.isSelected());
+        return camion;
     }
 
     private void configuraTabla() {
@@ -88,9 +188,17 @@ public class ControladorVistaCamiones implements ActionListener, ListSelectionLi
         List<Camion> lista = ctrl.traerListaCamiones();
         modelo.setData(lista);
     }
-    
-}
 
+    private void mostrarCamion() {
+        vista.txCodigo.setText(camionActual.getCodigo() + "");
+        vista.txPatente.setText(camionActual.getPatente());
+        vista.txOdometro.setText(camionActual.getOdometro() + "");
+        vista.txTeorico.setText(camionActual.getTeorico() + "");
+        vista.chEstado.setSelected(camionActual.getEstado());
+                
+    }
+
+}
 
 class CamionesTableModel extends AbstractTableModel {
 
@@ -126,7 +234,7 @@ class CamionesTableModel extends AbstractTableModel {
                 return obj.getPatente();
             case 2:
                 return obj.getOdometro();
-               // return formatearImporte(obj.getTotal()); // Formatear el importe
+            // return formatearImporte(obj.getTotal()); // Formatear el importe
             default:
                 return null;
         }

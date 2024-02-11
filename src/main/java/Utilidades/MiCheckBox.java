@@ -22,7 +22,7 @@ public class MiCheckBox extends JCheckBox {
             setText("Activo");
         } else {
             setBackground(Color.RED);  // Color de fondo rojo cuando no está seleccionado (false)
-            setText("Eliminado");
+            setText("Inhabilitado");
         }
     }
     
