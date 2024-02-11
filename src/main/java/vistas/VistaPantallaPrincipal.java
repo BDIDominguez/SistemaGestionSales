@@ -22,10 +22,12 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
         itemCambiarUsuario = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         itemEntregas = new javax.swing.JMenuItem();
+        itemConfirmarEntregas = new javax.swing.JMenuItem();
         itemMorros = new javax.swing.JMenuItem();
         itemCargaDiariaMorros = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         itemCargaCombustibles = new javax.swing.JMenuItem();
+        itemCamiones = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Gestion");
@@ -79,7 +81,10 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
         itemEntregas.setText("Envio a Clientes");
         jMenu1.add(itemEntregas);
 
-        itemMorros.setText("Morros");
+        itemConfirmarEntregas.setText("Confirmar Entrega");
+        jMenu1.add(itemConfirmarEntregas);
+
+        itemMorros.setText("Crear Morros");
         jMenu1.add(itemMorros);
 
         itemCargaDiariaMorros.setText("Producción Diaria");
@@ -91,6 +96,9 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
 
         itemCargaCombustibles.setText("Cargas de Combustibles");
         jMenu3.add(itemCargaCombustibles);
+
+        itemCamiones.setText("Camiones Existentes");
+        jMenu3.add(itemCamiones);
 
         jMenuBar1.add(jMenu3);
 
@@ -141,8 +149,10 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JDesktopPane fondo;
     public javax.swing.JMenuItem itemCambiarUsuario;
+    public javax.swing.JMenuItem itemCamiones;
     public javax.swing.JMenuItem itemCargaCombustibles;
     public javax.swing.JMenuItem itemCargaDiariaMorros;
+    public javax.swing.JMenuItem itemConfirmarEntregas;
     public javax.swing.JMenuItem itemEntregas;
     public javax.swing.JMenuItem itemMorros;
     public javax.swing.JMenuItem itemObjetos;

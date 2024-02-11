@@ -1,5 +1,6 @@
 package Utilidades;
 
+import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
@@ -12,7 +13,7 @@ public class MiCampoHora extends JTextField {
 
     public MiCampoHora() {
         super();
-
+        setFont(new Font("Arial", Font.BOLD, 14));  // Fuente bold, tamaño 14
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {

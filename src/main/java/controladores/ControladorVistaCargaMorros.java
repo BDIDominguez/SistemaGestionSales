@@ -109,9 +109,7 @@ public class ControladorVistaCargaMorros implements ActionListener, ListSelectio
                 if (comandos.tienePermiso(usuario, obj, "Crear")) {
                     CargaMorro carga = crearCargaMorro();
                     ctrl.crearCargaMorro(carga);
-                    Morro morro = ctrl.traerMorro(carga.getCodigoMorro()); // Se trae el morro para poder cargar su Stock
-                    morro.agregarAlMorro(carga.getTotal(),carga.getPileta(),carga.getBarrido()); // Se agrega al Stock actual del morro el total de la carga actual
-                    ctrl.editarMorro(morro); // Se Guarga el Morro con su Stock Modificado
+                    agregarStockMorro(carga); // Se Agrega al Stock del Morro los nuevos datos
                     vista.btEliminar.setEnabled(false);
                     vista.btGuardar.setEnabled(false);
                     vista.btNuevo.setEnabled(true);
@@ -124,20 +122,29 @@ public class ControladorVistaCargaMorros implements ActionListener, ListSelectio
                     CargaMorro carga = crearCargaMorro();
                     carga.setCodigo(cargaMorro.getCodigo());
                     ctrl.editarCargaMorro(carga);   // al ser una modificacion tenemos que Actualizar atributo Sock del morro para llevar bien la cuenta ya sea porque se anulo la carga o se modifico el monto
-                    if (carga.getEstado()) { // No se modifico el estado por ende se comprueban las cantidades
-                        if (carga.getTotal() != cargaMorro.getTotal()) { // si los valores sondistintos se requiere corregir el stock ya que primero se descontaron 2 pero luego se descontaron 3 por ende el stock cambio de forma distinta
-                            Morro morro = ctrl.traerMorro(carga.getCodigoMorro());
-                            morro.quitarDelMorro(cargaMorro.getTotal(),cargaMorro.getPileta(),cargaMorro.getBarrido()); // se descuenta lo anteriormente agregado
-                            morro.agregarAlMorro(carga.getTotal(),carga.getPileta(),carga.getBarrido()); // Se carga en el Morro la nueva cantida de Ingreso en el Morro
-                        }
-                    }else{ // Se Anulo la Carga por ende se debe quitar todo lo agergado
-                        Morro morro = ctrl.traerMorro(carga.getCodigoMorro());
-                        morro.quitarDelMorro(cargaMorro.getTotal(),cargaMorro.getPileta(),cargaMorro.getBarrido()); // se descuenta lo anteriormente agregado
+                    /* Escenarios:
+                        - se Cambia el estado a false - se debe descontar lo cargado
+                        - se Cambia el estado a true  - se debe Agregar el contenido
+                        - se Modificaron las cantidades - se debe Descontar el primero y Sumar el segundo
+                     */
+                    boolean modificado = false;
+                    if (cargaMorro.getEstado() && !carga.getEstado()) { // 1er escenario
+                        quitarStockMorro(carga);
+                        modificado = true;
+                    } else if (!cargaMorro.getEstado() && carga.getEstado()) { // Se cambio de estado False a True por lo que se debe agregar de nuevo al stock del Morro
+                        agregarStockMorro(carga); // Se Agrega al Stock del Morro los nuevos datos
+                        modificado = true;
+                    } else if (carga.getTotal() != cargaMorro.getTotal() || carga.getPileta() != cargaMorro.getPileta() || carga.getBarrido() != cargaMorro.getBarrido()) { // 3er ecenario
+                        quitarStockMorro(cargaMorro);
+                        agregarStockMorro(carga);
+                        modificado = true;
                     }
-                    vista.btEliminar.setEnabled(false);
-                    vista.btGuardar.setEnabled(false);
-                    vista.btNuevo.setEnabled(true);
-                    cargarTabla();
+                    if (modificado) {
+                        vista.btEliminar.setEnabled(false);
+                        vista.btGuardar.setEnabled(false);
+                        vista.btNuevo.setEnabled(true);
+                        cargarTabla();
+                    }
                 } else {
                     JOptionPane.showMessageDialog(vista, "No tienes permiso para Crear nuevas Cargas");
                 }
@@ -147,7 +154,7 @@ public class ControladorVistaCargaMorros implements ActionListener, ListSelectio
             if (usuario.getTipo() == EnumUsuario.SUPERADMIN) {
                 ctrl.eliminarCargaMorro(cargaMorro.getCodigo()); // Si se elimina correctamente se debe corregir el Stock en el morro
                 Morro morro = ctrl.traerMorro(cargaMorro.getCodigoMorro());
-                morro.quitarDelMorro(cargaMorro.getTotal(),cargaMorro.getPileta(),cargaMorro.getBarrido()); // Se quita lo que supuestamente este movimiento Agrego
+                morro.quitarDelMorro(cargaMorro.getTotal(), cargaMorro.getPileta(), cargaMorro.getBarrido()); // Se quita lo que supuestamente este movimiento Agrego
                 ctrl.editarMorro(morro); //Se Guarda el Morro con el Stock Corregido
                 cargarTabla();
             } else {
@@ -156,7 +163,7 @@ public class ControladorVistaCargaMorros implements ActionListener, ListSelectio
                     cargaMorro.setEstado(false);
                     Morro morro = ctrl.traerMorro(cargaMorro.getCodigoMorro());
                     ctrl.editarCargaMorro(cargaMorro);
-                    morro.quitarDelMorro(cargaMorro.getTotal(),cargaMorro.getPileta(),cargaMorro.getBarrido()); // Se quita lo que supuestamente este movimiento Agrego
+                    morro.quitarDelMorro(cargaMorro.getTotal(), cargaMorro.getPileta(), cargaMorro.getBarrido()); // Se quita lo que supuestamente este movimiento Agrego
                     ctrl.editarMorro(morro); //Se Guarda el Morro con el Stock Corregido
                     vista.btEliminar.setEnabled(false);
                     vista.btGuardar.setEnabled(false);
@@ -237,10 +244,10 @@ public class ControladorVistaCargaMorros implements ActionListener, ListSelectio
         modelo.setData(lista);
         LocalDate fecha = vista.dcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         lista = ctrl.traerCargasMorroConFecha(fecha);
+        modelo.setData(lista);
         double total = 0.0;
         for (CargaMorro cm : lista) { // Solo se podra ver los que estan marcados como activos ya que cuando los Eliminas los Eliminas. tener en cuenta que el programa
             if (cm.getEstado()) {     // no contempla el stock en caso de pasarlo de desactivado a activado!!!!
-                modelo.agregarDato(cm);
                 total = total + cm.getTotal();
             }
         }
@@ -278,6 +285,19 @@ public class ControladorVistaCargaMorros implements ActionListener, ListSelectio
         carga.setTotal(vista.txTotal.getValorDouble());
         return carga;
     }
+
+    private void agregarStockMorro(CargaMorro carga) {
+        Morro morro = ctrl.traerMorro(carga.getCodigoMorro()); // Se trae el morro para poder cargar su Stock
+        morro.agregarAlMorro(carga.getTotal(), carga.getPileta(), carga.getBarrido()); // Se agrega al Stock actual del morro el total de la carga
+        ctrl.editarMorro(morro); // Se Guarga el Morro con su Stock Modificado
+    }
+
+    private void quitarStockMorro(CargaMorro carga) {
+        Morro morro = ctrl.traerMorro(carga.getCodigoMorro()); // Se trae el morro para poder cargar su Stock
+        morro.quitarDelMorro(carga.getTotal(), carga.getPileta(), carga.getBarrido()); // Se quita al Stock actual del morro el total de la carga
+        ctrl.editarMorro(morro); // Se Guarga el Morro con su Stock Modificado
+    }
+
 }
 
 class CargaMorroTableModel extends AbstractTableModel {

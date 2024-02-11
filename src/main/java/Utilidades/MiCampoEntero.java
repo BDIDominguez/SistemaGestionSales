@@ -1,5 +1,6 @@
 package Utilidades;
 
+import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
@@ -13,6 +14,8 @@ public class MiCampoEntero extends JTextField {
 
     public MiCampoEntero() {
         super();
+        super.setText("0");
+        setFont(new Font("Arial", Font.BOLD, 14));  // Fuente bold, tamaño 14
         setHorizontalAlignment(SwingConstants.RIGHT);
 
         addKeyListener(new KeyAdapter() {

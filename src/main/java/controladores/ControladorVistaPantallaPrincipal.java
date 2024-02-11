@@ -10,8 +10,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
+import vistas.VistaCamiones;
 import vistas.VistaCargaCombustible;
 import vistas.VistaCargaMorros;
+import vistas.VistaConfirmarEntregas;
 import vistas.VistaEntregas;
 import vistas.VistaInicioSesion;
 import vistas.VistaMorros;
@@ -40,6 +42,8 @@ public class ControladorVistaPantallaPrincipal implements ActionListener, MenuLi
         menu.itemObjetos.addActionListener(this);
         menu.itemPermisos.addActionListener(this);
         menu.itemCambiarUsuario.addActionListener(this);
+        menu.itemConfirmarEntregas.addActionListener(this);
+        menu.itemCamiones.addActionListener(this);
         
         // Items del menu Proveedores
         menu.itemProveedores.addActionListener(this);
@@ -146,6 +150,26 @@ public class ControladorVistaPantallaPrincipal implements ActionListener, MenuLi
             if (comandos.tienePermiso(usuario, obj, "Ingresar")) {
                 VistaCargaMorros vista = new VistaCargaMorros();
                 ControladorVistaCargaMorros trl = new ControladorVistaCargaMorros(menu, vista, comandos,usuario,ctrl,obj);
+                trl.iniciar();
+            } else {
+                JOptionPane.showMessageDialog(menu, "No tienes permiso para ver estas pantalla!!!");
+            }
+        }
+        if (e.getSource() == menu.itemConfirmarEntregas){
+            Objeto obj = ctrl.traerObjeto(10);
+            if (comandos.tienePermiso(usuario, obj, "Ingresar")) {
+                VistaConfirmarEntregas vista = new VistaConfirmarEntregas();
+                ControladorVistaConfirmarEntregas trl = new ControladorVistaConfirmarEntregas(menu, vista, comandos,usuario,ctrl,obj);
+                trl.iniciar();
+            } else {
+                JOptionPane.showMessageDialog(menu, "No tienes permiso para ver estas pantalla!!!");
+            }
+        }
+        if (e.getSource() == menu.itemCamiones){
+            Objeto obj = ctrl.traerObjeto(11);
+            if (comandos.tienePermiso(usuario, obj, "Ingresar")) {
+                VistaCamiones vista = new VistaCamiones();
+                ControladorVistaCamiones trl = new ControladorVistaCamiones(menu, vista, comandos,usuario,ctrl,obj);
                 trl.iniciar();
             } else {
                 JOptionPane.showMessageDialog(menu, "No tienes permiso para ver estas pantalla!!!");

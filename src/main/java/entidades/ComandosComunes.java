@@ -37,6 +37,8 @@ public class ComandosComunes {
         objetos.add(new Objeto(7, "Pantalla de Entregas", Boolean.TRUE, permisos));
         objetos.add(new Objeto(8, "Pantalla de Cargas de Combustible", Boolean.TRUE, permisos));
         objetos.add(new Objeto(9, "Pantalla de Cargas Diaria de los Morros", Boolean.TRUE, permisos));
+        objetos.add(new Objeto(10, "Pantalla de Confirmacion de Cantidad Entrega", Boolean.TRUE, permisos));
+        objetos.add(new Objeto(11, "Pantalla de Camiones", Boolean.TRUE, permisos));
         List<Objeto> existentes = ctrl.traerListaObjetos();
         for (Objeto objeto : objetos) {
             if (!existentes.contains(objeto)) {

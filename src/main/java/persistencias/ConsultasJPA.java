@@ -1,6 +1,7 @@
 package persistencias;
 
 import entidades.CargaMorro;
+import entidades.Cliente;
 import entidades.Combustible;
 import entidades.Entrega;
 import jakarta.persistence.EntityManager;
@@ -151,5 +152,19 @@ public class ConsultasJPA {
             }
         }
     }
+    
+    public List<Entrega> traerEntregaPorClienteAConfirmar(Cliente cliente) {
+        em = getEntityManager();
+        try {
+            TypedQuery<Entrega> query = em.createNamedQuery("Entrega.findByClienteAConfirmar", Entrega.class);
+            query.setParameter("cliente", cliente);
+            return query.getResultList();
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+    
 
 }

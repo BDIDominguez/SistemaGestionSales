@@ -103,9 +103,17 @@
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
               </AuxValues>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemConfirmarEntregas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Confirmar Entrega"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemMorros">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Morros"/>
+                <Property name="text" type="java.lang.String" value="Crear Morros"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -129,6 +137,14 @@
             <MenuItem class="javax.swing.JMenuItem" name="itemCargaCombustibles">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cargas de Combustibles"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemCamiones">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Camiones Existentes"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>

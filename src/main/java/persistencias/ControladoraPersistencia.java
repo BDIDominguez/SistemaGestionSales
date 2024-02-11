@@ -79,6 +79,10 @@ public class ControladoraPersistencia {
     public List<CargaMorro> traerCargasMorroConFechaMorro(LocalDate fecha, int codigo){
         return consultasJpa.traerCargasMorroConFechaMorro(fecha,codigo);
     }
+    
+    public List<Entrega> traerEntregaPorClienteAConfirmar(Cliente cliente){
+        return consultasJpa.traerEntregaPorClienteAConfirmar(cliente);
+    }
 
     // -----------------   OBJETO ------------------
     public void crearObjeto(Objeto obj) {

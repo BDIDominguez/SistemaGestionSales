@@ -36,6 +36,10 @@ import lombok.experimental.FieldDefaults;
     @NamedQuery(
             name = "Entrega.findBetweenEntrega",
             query = "SELECT e FROM Entrega e WHERE e.fecentrega >= :fechaDesde and e.fecentrega <= :fechaHasta"
+    ),
+    @NamedQuery(
+            name = "Entrega.findByClienteAConfirmar",
+            query = "SELECT e FROM Entrega e WHERE e.cliente = :cliente AND e.etapa = 0 ORDER BY e.remito, e.fecsalida"
     )
 
 })

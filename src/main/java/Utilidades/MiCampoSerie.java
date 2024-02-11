@@ -1,5 +1,6 @@
 package Utilidades;
 
+import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
@@ -11,6 +12,7 @@ public class MiCampoSerie extends JTextField {
 
     public MiCampoSerie(int cantidadDigitos) {
         super();
+        setFont(new Font("Arial", Font.BOLD, 14));  // Fuente bold, tamaño 14
         this.cantidadDigitos = cantidadDigitos;
 
         addKeyListener(new KeyAdapter() {

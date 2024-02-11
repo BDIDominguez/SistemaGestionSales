@@ -1,6 +1,7 @@
 
 import controladores.ControladorVistaCargaCombustible;
 import controladores.ControladorVistaCargaMorros;
+import controladores.ControladorVistaConfirmarEntregas;
 import controladores.ControladorVistaMorros;
 import entidades.ComandosComunes;
 import entidades.Controladora;
@@ -12,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import vistas.VistaCargaCombustible;
 import vistas.VistaCargaMorros;
+import vistas.VistaConfirmarEntregas;
 import vistas.VistaMorros;
 import vistas.VistaPantallaPrincipal;
 
@@ -47,13 +49,17 @@ public class PruebaVista {
         menu.fondo.moveToFront(vista);
         vista.requestFocus();
         */
-       
-         Objeto obj = ctrl.traerObjeto(9);
-         VistaCargaMorros vista = new VistaCargaMorros();
-         ControladorVistaCargaMorros control = new ControladorVistaCargaMorros(menu, vista, comandos,usuario,ctrl,obj);
-         control.iniciar();
-         
+        /*
+        Objeto obj = ctrl.traerObjeto(9);
+        VistaCargaMorros vista = new VistaCargaMorros();
+        ControladorVistaCargaMorros control = new ControladorVistaCargaMorros(menu, vista, comandos,usuario,ctrl,obj);
+        control.iniciar();
+        */
         
+        Objeto obj = ctrl.traerObjeto(10);
+        VistaConfirmarEntregas vista = new VistaConfirmarEntregas();
+        ControladorVistaConfirmarEntregas control = new ControladorVistaConfirmarEntregas(menu, vista, comandos, usuario ,ctrl, obj);
+        control.iniciar();
     }
     
 }

@@ -30,6 +30,10 @@ public class Controladora {
         return ctrl.traerCargasMorroConFechaMorro(fecha,codigo);
     }
     
+    public List<Entrega> traerEntregaPorClienteAConfirmar(Cliente cliente){
+        return ctrl.traerEntregaPorClienteAConfirmar(cliente);
+    }
+    
     // -----------------   OBJETO ------------------
     public void crearObjeto(Objeto obj){
         ctrl.crearObjeto(obj);

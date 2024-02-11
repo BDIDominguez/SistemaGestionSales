@@ -110,6 +110,7 @@ public class ControladorVistaMorros implements ActionListener, ListSelectionList
                 vista.txObs.setEnabled(true);
                 vista.chEstado.setEnabled(true);
                 vista.btGuardar.setEnabled(true);
+                vista.txNombre.requestFocus();
             }else{
                 JOptionPane.showMessageDialog(vista, "No tienes permiso para crear Nuevos");
             }
