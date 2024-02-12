@@ -2,6 +2,7 @@
 import controladores.ControladorVistaCamiones;
 import controladores.ControladorVistaCargaCombustible;
 import controladores.ControladorVistaCargaMorros;
+import controladores.ControladorVistaChoferes;
 import controladores.ControladorVistaConfirmarEntregas;
 import controladores.ControladorVistaMorros;
 import entidades.ComandosComunes;
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
 import vistas.VistaCamiones;
 import vistas.VistaCargaCombustible;
 import vistas.VistaCargaMorros;
+import vistas.VistaChoferes;
 import vistas.VistaConfirmarEntregas;
 import vistas.VistaMorros;
 import vistas.VistaPantallaPrincipal;
@@ -63,9 +65,16 @@ public class PruebaVista {
         ControladorVistaConfirmarEntregas control = new ControladorVistaConfirmarEntregas(menu, vista, comandos, usuario ,ctrl, obj);
         control.iniciar();
         */
+        /*
         Objeto obj = ctrl.traerObjeto(11);
         VistaCamiones vista = new VistaCamiones();
         ControladorVistaCamiones control = new ControladorVistaCamiones(menu, vista, comandos, usuario ,ctrl, obj);
+        control.iniciar();
+        */
+        
+        Objeto obj = ctrl.traerObjeto(12);
+        VistaChoferes vista = new VistaChoferes();
+        ControladorVistaChoferes control = new ControladorVistaChoferes(menu, vista, comandos, usuario ,ctrl, obj);
         control.iniciar();
         
     }

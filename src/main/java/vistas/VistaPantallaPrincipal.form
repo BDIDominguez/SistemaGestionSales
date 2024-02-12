@@ -7,6 +7,9 @@
         <Menu class="javax.swing.JMenu" name="menuArchivos">
           <Properties>
             <Property name="text" type="java.lang.String" value="Archivos"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="16" style="0"/>
+            </Property>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -14,6 +17,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itemSalir">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="14" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Salir"/>
               </Properties>
               <AuxValues>
@@ -25,6 +31,9 @@
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
             <Property name="text" type="java.lang.String" value="Productos"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="16" style="0"/>
+            </Property>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -33,6 +42,9 @@
         <Menu class="javax.swing.JMenu" name="menuProveedores">
           <Properties>
             <Property name="text" type="java.lang.String" value="Proveedores"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="16" style="0"/>
+            </Property>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -40,6 +52,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itemProveedores">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="14" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Proveedores"/>
               </Properties>
               <AuxValues>
@@ -51,6 +66,9 @@
         <Menu class="javax.swing.JMenu" name="menuUsuarios">
           <Properties>
             <Property name="text" type="java.lang.String" value="Usuarios"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="16" style="0"/>
+            </Property>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -58,6 +76,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itemObjetos">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="14" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Objetos"/>
               </Properties>
               <AuxValues>
@@ -66,6 +87,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemPermisos">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="14" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Permisos"/>
               </Properties>
               <AuxValues>
@@ -74,6 +98,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemUsuarios">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="14" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Usuarios"/>
               </Properties>
               <AuxValues>
@@ -82,6 +109,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemCambiarUsuario">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="14" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cambiar Usuario"/>
               </Properties>
               <AuxValues>
@@ -93,10 +123,16 @@
         <Menu class="javax.swing.JMenu" name="jMenu1">
           <Properties>
             <Property name="text" type="java.lang.String" value="Morros"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="16" style="0"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itemEntregas">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="14" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Envio a Clientes"/>
               </Properties>
               <AuxValues>
@@ -105,6 +141,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemConfirmarEntregas">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="14" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Confirmar Entrega"/>
               </Properties>
               <AuxValues>
@@ -113,6 +152,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemMorros">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="14" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Crear Morros"/>
               </Properties>
               <AuxValues>
@@ -121,6 +163,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemCargaDiariaMorros">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="14" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Producci&#xf3;n Diaria"/>
               </Properties>
               <AuxValues>
@@ -132,10 +177,16 @@
         <Menu class="javax.swing.JMenu" name="jMenu3">
           <Properties>
             <Property name="text" type="java.lang.String" value="Combustibles"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="16" style="0"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itemCargaCombustibles">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="14" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cargas de Combustibles"/>
               </Properties>
               <AuxValues>
@@ -144,7 +195,21 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itemCamiones">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="14" style="0"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Camiones Existentes"/>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
+              </AuxValues>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemChoferes">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Dialog" size="14" style="0"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Choferes Existentes"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -202,7 +267,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="543" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="539" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>

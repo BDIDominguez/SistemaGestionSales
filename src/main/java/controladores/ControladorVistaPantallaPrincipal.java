@@ -13,6 +13,7 @@ import javax.swing.event.MenuListener;
 import vistas.VistaCamiones;
 import vistas.VistaCargaCombustible;
 import vistas.VistaCargaMorros;
+import vistas.VistaChoferes;
 import vistas.VistaConfirmarEntregas;
 import vistas.VistaEntregas;
 import vistas.VistaInicioSesion;
@@ -37,6 +38,7 @@ public class ControladorVistaPantallaPrincipal implements ActionListener, MenuLi
         // Capturando eventos de los Items del menu
         // Archivos
         menu.itemSalir.addActionListener(this);
+        
         // Items del menu Usuarios        
         menu.itemUsuarios.addActionListener(this);
         menu.itemObjetos.addActionListener(this);
@@ -44,6 +46,7 @@ public class ControladorVistaPantallaPrincipal implements ActionListener, MenuLi
         menu.itemCambiarUsuario.addActionListener(this);
         menu.itemConfirmarEntregas.addActionListener(this);
         menu.itemCamiones.addActionListener(this);
+        menu.itemChoferes.addActionListener(this);
         
         // Items del menu Proveedores
         menu.itemProveedores.addActionListener(this);
@@ -170,6 +173,16 @@ public class ControladorVistaPantallaPrincipal implements ActionListener, MenuLi
             if (comandos.tienePermiso(usuario, obj, "Ingresar")) {
                 VistaCamiones vista = new VistaCamiones();
                 ControladorVistaCamiones trl = new ControladorVistaCamiones(menu, vista, comandos,usuario,ctrl,obj);
+                trl.iniciar();
+            } else {
+                JOptionPane.showMessageDialog(menu, "No tienes permiso para ver estas pantalla!!!");
+            }
+        }
+        if (e.getSource() == menu.itemChoferes){
+            Objeto obj = ctrl.traerObjeto(12);
+            if (comandos.tienePermiso(usuario, obj, "Ingresar")) {
+                VistaChoferes vista = new VistaChoferes();
+                ControladorVistaChoferes trl = new ControladorVistaChoferes(menu, vista, comandos,usuario,ctrl,obj);
                 trl.iniciar();
             } else {
                 JOptionPane.showMessageDialog(menu, "No tienes permiso para ver estas pantalla!!!");

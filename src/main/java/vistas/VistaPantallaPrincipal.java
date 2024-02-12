@@ -28,6 +28,7 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         itemCargaCombustibles = new javax.swing.JMenuItem();
         itemCamiones = new javax.swing.JMenuItem();
+        itemChoferes = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Gestion");
@@ -40,65 +41,87 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
         );
         fondoLayout.setVerticalGroup(
             fondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 543, Short.MAX_VALUE)
+            .addGap(0, 539, Short.MAX_VALUE)
         );
 
         menuArchivos.setText("Archivos");
+        menuArchivos.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
 
+        itemSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemSalir.setText("Salir");
         menuArchivos.add(itemSalir);
 
         jMenuBar1.add(menuArchivos);
 
         jMenu2.setText("Productos");
+        jMenu2.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         jMenuBar1.add(jMenu2);
 
         menuProveedores.setText("Proveedores");
+        menuProveedores.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
 
+        itemProveedores.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemProveedores.setText("Proveedores");
         menuProveedores.add(itemProveedores);
 
         jMenuBar1.add(menuProveedores);
 
         menuUsuarios.setText("Usuarios");
+        menuUsuarios.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
 
+        itemObjetos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemObjetos.setText("Objetos");
         menuUsuarios.add(itemObjetos);
 
+        itemPermisos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemPermisos.setText("Permisos");
         menuUsuarios.add(itemPermisos);
 
+        itemUsuarios.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemUsuarios.setText("Usuarios");
         menuUsuarios.add(itemUsuarios);
 
+        itemCambiarUsuario.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemCambiarUsuario.setText("Cambiar Usuario");
         menuUsuarios.add(itemCambiarUsuario);
 
         jMenuBar1.add(menuUsuarios);
 
         jMenu1.setText("Morros");
+        jMenu1.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
 
+        itemEntregas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemEntregas.setText("Envio a Clientes");
         jMenu1.add(itemEntregas);
 
+        itemConfirmarEntregas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemConfirmarEntregas.setText("Confirmar Entrega");
         jMenu1.add(itemConfirmarEntregas);
 
+        itemMorros.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemMorros.setText("Crear Morros");
         jMenu1.add(itemMorros);
 
+        itemCargaDiariaMorros.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemCargaDiariaMorros.setText("Producción Diaria");
         jMenu1.add(itemCargaDiariaMorros);
 
         jMenuBar1.add(jMenu1);
 
         jMenu3.setText("Combustibles");
+        jMenu3.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
 
+        itemCargaCombustibles.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemCargaCombustibles.setText("Cargas de Combustibles");
         jMenu3.add(itemCargaCombustibles);
 
+        itemCamiones.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemCamiones.setText("Camiones Existentes");
         jMenu3.add(itemCamiones);
+
+        itemChoferes.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemChoferes.setText("Choferes Existentes");
+        jMenu3.add(itemChoferes);
 
         jMenuBar1.add(jMenu3);
 
@@ -152,6 +175,7 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenuItem itemCamiones;
     public javax.swing.JMenuItem itemCargaCombustibles;
     public javax.swing.JMenuItem itemCargaDiariaMorros;
+    public javax.swing.JMenuItem itemChoferes;
     public javax.swing.JMenuItem itemConfirmarEntregas;
     public javax.swing.JMenuItem itemEntregas;
     public javax.swing.JMenuItem itemMorros;
