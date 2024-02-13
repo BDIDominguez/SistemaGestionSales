@@ -21,14 +21,16 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
         itemUsuarios = new javax.swing.JMenuItem();
         itemCambiarUsuario = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
-        itemEntregas = new javax.swing.JMenuItem();
-        itemConfirmarEntregas = new javax.swing.JMenuItem();
         itemMorros = new javax.swing.JMenuItem();
         itemCargaDiariaMorros = new javax.swing.JMenuItem();
+        itemClientes = new javax.swing.JMenuItem();
+        itemEntregas = new javax.swing.JMenuItem();
+        itemConfirmarEntregas = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        itemCargaCombustibles = new javax.swing.JMenuItem();
         itemCamiones = new javax.swing.JMenuItem();
         itemChoferes = new javax.swing.JMenuItem();
+        itemCargaCombustibles = new javax.swing.JMenuItem();
+        itemOdometro = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Gestion");
@@ -90,14 +92,6 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
         jMenu1.setText("Morros");
         jMenu1.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
 
-        itemEntregas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemEntregas.setText("Envio a Clientes");
-        jMenu1.add(itemEntregas);
-
-        itemConfirmarEntregas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemConfirmarEntregas.setText("Confirmar Entrega");
-        jMenu1.add(itemConfirmarEntregas);
-
         itemMorros.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemMorros.setText("Crear Morros");
         jMenu1.add(itemMorros);
@@ -106,14 +100,22 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
         itemCargaDiariaMorros.setText("Producción Diaria");
         jMenu1.add(itemCargaDiariaMorros);
 
+        itemClientes.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemClientes.setText("Clientes");
+        jMenu1.add(itemClientes);
+
+        itemEntregas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemEntregas.setText("Envio a Clientes");
+        jMenu1.add(itemEntregas);
+
+        itemConfirmarEntregas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemConfirmarEntregas.setText("Confirmar Entrega");
+        jMenu1.add(itemConfirmarEntregas);
+
         jMenuBar1.add(jMenu1);
 
         jMenu3.setText("Combustibles");
         jMenu3.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-
-        itemCargaCombustibles.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemCargaCombustibles.setText("Cargas de Combustibles");
-        jMenu3.add(itemCargaCombustibles);
 
         itemCamiones.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemCamiones.setText("Camiones Existentes");
@@ -122,6 +124,15 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
         itemChoferes.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemChoferes.setText("Choferes Existentes");
         jMenu3.add(itemChoferes);
+
+        itemCargaCombustibles.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemCargaCombustibles.setText("Cargas de Combustibles");
+        jMenu3.add(itemCargaCombustibles);
+
+        itemOdometro.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
+        itemOdometro.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemOdometro.setText("Control Odometro");
+        jMenu3.add(itemOdometro);
 
         jMenuBar1.add(jMenu3);
 
@@ -176,10 +187,12 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenuItem itemCargaCombustibles;
     public javax.swing.JMenuItem itemCargaDiariaMorros;
     public javax.swing.JMenuItem itemChoferes;
+    public javax.swing.JMenuItem itemClientes;
     public javax.swing.JMenuItem itemConfirmarEntregas;
     public javax.swing.JMenuItem itemEntregas;
     public javax.swing.JMenuItem itemMorros;
     public javax.swing.JMenuItem itemObjetos;
+    private javax.swing.JMenuItem itemOdometro;
     public javax.swing.JMenuItem itemPermisos;
     public javax.swing.JMenuItem itemProveedores;
     public javax.swing.JMenuItem itemSalir;

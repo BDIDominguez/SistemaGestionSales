@@ -63,6 +63,8 @@ public class ControladorVistaProveedores implements ActionListener, ListSelectio
         modelarTablaProveedores();
         modelarTablaTelefonos();
         cargarProveedores();
+        vista.txObs.setLineWrap(true);
+        vista.txObs.setWrapStyleWord(true);
         /*
         modelarTabla();
         cargaTabla();

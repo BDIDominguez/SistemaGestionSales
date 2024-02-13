@@ -129,8 +129,12 @@ public class ControladorVistaEntregas implements ActionListener, ListSelectionLi
                 if (comandos.tienePermiso(usuario, obj, "Crear")) {
                     Entrega entrega = new Entrega();
                     entrega.setCodigo(1);
-                    entrega.setCamion((Camion) vista.cbCamion.getSelectedItem());
-                    entrega.setCliente((Cliente) vista.cbCliente.getSelectedItem());
+                    Camion camion = (Camion) vista.cbCamion.getSelectedItem();
+                    Cliente cliente = (Cliente) vista.cbCliente.getSelectedItem();
+                    camion.sumarTeorico(cliente.getDistancia() * 2);
+                    ctrl.editarCamion(camion);
+                    entrega.setCamion(camion);
+                    entrega.setCliente(cliente);
                     entrega.setConfirmado(0);
                     entrega.setFecentrega(LocalDate.now());
                     entrega.setFecsalida(vista.dcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
@@ -349,7 +353,6 @@ public class ControladorVistaEntregas implements ActionListener, ListSelectionLi
         vista.tabla.getColumnModel().getColumn(0).setPreferredWidth(298);
         vista.tabla.getColumnModel().getColumn(1).setPreferredWidth(90);
         vista.tabla.getColumnModel().getColumn(2).setPreferredWidth(150);
-
         cargarTablas();
     }
 
@@ -359,7 +362,9 @@ public class ControladorVistaEntregas implements ActionListener, ListSelectionLi
         LocalDate fecha = vista.dcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         lista = ctrl.traerListaEntregasPorFechaSalida(fecha);
         for (Entrega entrega : lista) {
-            modelo.agregarEntregas(entrega);
+            if (entrega.getEtapa() == 0){
+                modelo.agregarEntregas(entrega);
+            }
         }
         vista.txRemito.setBackground(Color.WHITE);
     }

@@ -38,6 +38,13 @@ public class Cliente implements Serializable {
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Entrega> entrega;
+    
+    public void sumarCantidad(double cant){
+        this.cantidad = this.cantidad + cant;
+    }
+    public void sumarImporte(double imp){
+        this.compras = this.compras + imp;
+    }
 
     @Override
     public String toString() {

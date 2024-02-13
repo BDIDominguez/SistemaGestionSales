@@ -14,6 +14,7 @@ import vistas.VistaCamiones;
 import vistas.VistaCargaCombustible;
 import vistas.VistaCargaMorros;
 import vistas.VistaChoferes;
+import vistas.VistaClientes;
 import vistas.VistaConfirmarEntregas;
 import vistas.VistaEntregas;
 import vistas.VistaInicioSesion;
@@ -47,6 +48,7 @@ public class ControladorVistaPantallaPrincipal implements ActionListener, MenuLi
         menu.itemConfirmarEntregas.addActionListener(this);
         menu.itemCamiones.addActionListener(this);
         menu.itemChoferes.addActionListener(this);
+        menu.itemClientes.addActionListener(this);
         
         // Items del menu Proveedores
         menu.itemProveedores.addActionListener(this);
@@ -183,6 +185,16 @@ public class ControladorVistaPantallaPrincipal implements ActionListener, MenuLi
             if (comandos.tienePermiso(usuario, obj, "Ingresar")) {
                 VistaChoferes vista = new VistaChoferes();
                 ControladorVistaChoferes trl = new ControladorVistaChoferes(menu, vista, comandos,usuario,ctrl,obj);
+                trl.iniciar();
+            } else {
+                JOptionPane.showMessageDialog(menu, "No tienes permiso para ver estas pantalla!!!");
+            }
+        }
+        if (e.getSource() == menu.itemClientes){
+            Objeto obj = ctrl.traerObjeto(13);
+            if (comandos.tienePermiso(usuario, obj, "Ingresar")) {
+                VistaClientes vista = new VistaClientes();
+                ControladorVistaClientes trl = new ControladorVistaClientes(menu, vista, comandos,usuario,ctrl,obj);
                 trl.iniciar();
             } else {
                 JOptionPane.showMessageDialog(menu, "No tienes permiso para ver estas pantalla!!!");

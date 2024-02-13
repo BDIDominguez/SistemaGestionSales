@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -79,6 +80,8 @@ public class ControladorVistaCargaMorros implements ActionListener, ListSelectio
         vista.btGuardar.setEnabled(false);
         vista.btEliminar.setEnabled(false);
         vista.dcFecha.setDate(new Date());
+        vista.txObs.setLineWrap(true);
+        vista.txObs.setWrapStyleWord(true);
         cargaComboBox();
         configuraTabla();
     }
@@ -95,6 +98,7 @@ public class ControladorVistaCargaMorros implements ActionListener, ListSelectio
                 vista.txObs.setText("");
                 vista.txPileta.setText("0.0");
                 vista.txTotal.setText("0.0");
+                vista.cbCamion.setSelectedIndex(0);
                 vista.chEstado.setSelected(true);
                 vista.btEliminar.setEnabled(false);
                 vista.btGuardar.setEnabled(true);
@@ -265,6 +269,7 @@ public class ControladorVistaCargaMorros implements ActionListener, ListSelectio
 
     private void cargaComboBox() {
         List<Morro> lista = ctrl.traerListaMorros();
+        lista.sort(Comparator.comparing(Morro::getNombre));  // Ordenar por nombre
         for (Morro cm : lista) {
             if (cm.getEstado()) {
                 vista.cbCamion.addItem(cm);

@@ -46,6 +46,7 @@ public class ControladorVistaInicioSesion implements ActionListener, FocusListen
         // setLocationRelativeTo(null)
         vista.setLocationRelativeTo(null);
         vista.setVisible(true);
+        
 
         return usuario;
 

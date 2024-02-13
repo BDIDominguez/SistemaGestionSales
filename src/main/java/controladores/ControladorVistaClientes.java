@@ -1,9 +1,10 @@
 package controladores;
 
 import entidades.Camion;
-import entidades.Chofer;
+import entidades.Cliente;
 import entidades.ComandosComunes;
 import entidades.Controladora;
+import entidades.Entrega;
 import entidades.EnumUsuario;
 import entidades.Objeto;
 import entidades.Usuario;
@@ -16,25 +17,24 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
-import vistas.VistaChoferes;
+import vistas.VistaClientes;
 import vistas.VistaPantallaPrincipal;
 
-public class ControladorVistaChoferes implements ActionListener, ListSelectionListener, PropertyChangeListener {
+public class ControladorVistaClientes implements ActionListener, ListSelectionListener, PropertyChangeListener {
 
     VistaPantallaPrincipal menu;
-    VistaChoferes vista;
+    VistaClientes vista;
     ComandosComunes comandos;
     Usuario usuario;
     Controladora ctrl;
     Objeto obj;
-    ChoferesTableModel modelo = new ChoferesTableModel();
-    Chofer objetoActual;
+    ClienteTableModel modelo = new ClienteTableModel();
+    Cliente objetoActual;
 
-    public ControladorVistaChoferes(VistaPantallaPrincipal menu, VistaChoferes vista, ComandosComunes comandos, Usuario usuario, Controladora ctrl, Objeto obj) {
+    public ControladorVistaClientes(VistaPantallaPrincipal menu, VistaClientes vista, ComandosComunes comandos, Usuario usuario, Controladora ctrl, Objeto obj) {
         this.menu = menu;
         this.vista = vista;
         this.comandos = comandos;
@@ -51,6 +51,15 @@ public class ControladorVistaChoferes implements ActionListener, ListSelectionLi
         // Agregando los Tabla a escuchar
         vista.tabla.getSelectionModel().addListSelectionListener(this);
 
+        // Agregando los Text
+        vista.txCodigo.addActionListener(this);
+        vista.txCantCompras.addActionListener(this);
+        vista.txCuit.addActionListener(this);
+        vista.txDistancia.addActionListener(this);
+        vista.txEstado.addActionListener(this);
+        vista.txImporte.addActionListener(this);
+        vista.txNombre.addActionListener(this);
+
     }
 
     public void iniciar() {
@@ -60,9 +69,6 @@ public class ControladorVistaChoferes implements ActionListener, ListSelectionLi
         vista.requestFocus();
         vista.btGuardar.setEnabled(false);
         vista.btEliminar.setEnabled(false);
-        vista.txObs.setLineWrap(true);
-        vista.txObs.setWrapStyleWord(true);
-        configurarCombo();
         configuraTabla();
 
     }
@@ -76,14 +82,17 @@ public class ControladorVistaChoferes implements ActionListener, ListSelectionLi
             if (comandos.tienePermiso(usuario, obj, "Crear")) {
                 objetoActual = null;
                 vista.txCodigo.setText("-1");
+                vista.txCantCompras.setText("0,00");
+                vista.txCuit.setText("");
+                vista.txDistancia.setText("0,00");
+                vista.txEstado.setSelected(true);
+                vista.txImporte.setText("0,00");
                 vista.txNombre.setText("");
-                vista.cbCamion.setSelectedIndex(0);
-                vista.txObs.setText("");
-                vista.chEstado.setSelected(true);
+                vista.txNombre.requestFocus();
                 vista.btNuevo.setEnabled(false);
                 vista.btGuardar.setEnabled(true);
                 vista.btEliminar.setEnabled(false);
-                vista.txNombre.requestFocus();
+
             } else {
                 JOptionPane.showMessageDialog(vista, "No tienes permiso para Crear nuevos Camiones");
             }
@@ -91,8 +100,8 @@ public class ControladorVistaChoferes implements ActionListener, ListSelectionLi
         if (e.getSource() == vista.btGuardar) {
             if (objetoActual == null) {
                 if (comandos.tienePermiso(usuario, obj, "Crear")) {
-                    Chofer chofer = crearObjeto();
-                    ctrl.crearChofer(chofer);
+                    Cliente cliente = crearCliente();
+                    ctrl.crearCliente(cliente);
                     vista.btNuevo.setEnabled(true);
                     vista.btGuardar.setEnabled(false);
                     vista.btEliminar.setEnabled(false);
@@ -100,10 +109,10 @@ public class ControladorVistaChoferes implements ActionListener, ListSelectionLi
                 } else {
                     JOptionPane.showMessageDialog(vista, "No tienes permiso para Crear nuevos Camiones");
                 }
-            }else{
+            } else {
                 if (comandos.tienePermiso(usuario, obj, "Actualizar")) {
-                    Chofer chofer = crearObjeto();
-                    ctrl.editarChofer(chofer);
+                    Cliente cliente = crearCliente();
+                    ctrl.editarCliente(cliente);
                     vista.btNuevo.setEnabled(true);
                     vista.btGuardar.setEnabled(false);
                     vista.btEliminar.setEnabled(false);
@@ -116,7 +125,7 @@ public class ControladorVistaChoferes implements ActionListener, ListSelectionLi
 
         if (e.getSource() == vista.btEliminar) {
             if (usuario.getTipo() == EnumUsuario.SUPERADMIN) {
-                ctrl.eliminarChofer(objetoActual.getCodigo()); // Si se elimina correctamente se debe corregir el Stock en el morro
+                ctrl.eliminarCliente(objetoActual.getCodigo()); // Si se elimina correctamente se debe corregir el Stock en el morro
                 cargarTabla();
                 vista.btEliminar.setEnabled(false);
                 vista.btGuardar.setEnabled(false);
@@ -125,7 +134,7 @@ public class ControladorVistaChoferes implements ActionListener, ListSelectionLi
             } else {
                 if (comandos.tienePermiso(usuario, obj, "Borrar")) {
                     objetoActual.setEstado(Boolean.FALSE);
-                    ctrl.editarChofer(objetoActual);
+                    ctrl.editarCliente(objetoActual);
                     vista.btEliminar.setEnabled(false);
                     vista.btGuardar.setEnabled(false);
                     vista.btNuevo.setEnabled(true);
@@ -156,72 +165,64 @@ public class ControladorVistaChoferes implements ActionListener, ListSelectionLi
 
     }
 
-   
-
     private void configuraTabla() {
         vista.tabla.setModel(modelo);
+        /*
         vista.tabla.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // ?
-        vista.tabla.getColumnModel().getColumn(0).setPreferredWidth(90);
-        vista.tabla.getColumnModel().getColumn(1).setPreferredWidth(200);
-        vista.tabla.getColumnModel().getColumn(2).setPreferredWidth(120);
+        vista.tabla.getColumnModel().getColumn(0).setPreferredWidth(100);
+        vista.tabla.getColumnModel().getColumn(1).setPreferredWidth(130);
+         */
         cargarTabla();
     }
 
     private void cargarTabla() {
-        List<Chofer> lista = ctrl.traerListaChoferes();
+        List<Cliente> lista = ctrl.traerListaClientes();
         modelo.setData(lista);
     }
 
-    private void configurarCombo() {
-        List<Camion> lista = ctrl.traerListaCamiones();
-        for (Camion camion : lista) {
-            if (camion.getEstado()){
-                vista.cbCamion.addItem(camion);
-            }
-        }
-    }
-
-    private Chofer crearObjeto() {
-        Chofer chofer = new Chofer();
-        if (objetoActual == null){
-            chofer.setCodigo(1);
-        }else{
-            chofer.setCodigo(objetoActual.getCodigo());
-        }
-        chofer.setCamion((Camion) vista.cbCamion.getSelectedItem());
-        chofer.setEstado(vista.chEstado.isSelected());
-        chofer.setNombre(vista.txNombre.getText());
-        chofer.setObs(vista.txObs.getText());
-        return chofer;
-    }
-
     private void mostrarObjeto() {
-        vista.txCodigo.setText(objetoActual.getCodigo()+"");
+        vista.txCodigo.setText(objetoActual.getCodigo() + "");
+        vista.txCantCompras.setText(objetoActual.getCantidad() + "");
+        vista.txCuit.setText(objetoActual.getCuil());
+        vista.txDistancia.setText(objetoActual.getDistancia() + "");
+        vista.txEstado.setSelected(objetoActual.getEstado());
+        vista.txImporte.setText(objetoActual.getCompras() + "");
         vista.txNombre.setText(objetoActual.getNombre());
-        vista.txObs.setText(objetoActual.getObs());
-        vista.chEstado.setSelected(objetoActual.getEstado());
-        vista.cbCamion.setSelectedItem(objetoActual.getCamion());
-        vista.btEliminar.setEnabled(true);
-        vista.btGuardar.setEnabled(true);
-        vista.btNuevo.setEnabled(true);
     }
 
-    
+    private Cliente crearCliente() {
+        Cliente cliente = new Cliente();
+        if (objetoActual == null){
+            List<Entrega> lista = new ArrayList();
+            cliente.setCodigo(1);
+            cliente.setEntrega(lista);
+        }else{
+            cliente.setEntrega(objetoActual.getEntrega());
+            cliente.setCodigo(objetoActual.getCodigo());
+        }
+        cliente.setCantidad(vista.txCantCompras.getValorDouble());
+        cliente.setCompras(vista.txImporte.getValorDouble());
+        cliente.setCuil(vista.txCuit.getText());
+        cliente.setDistancia(vista.txDistancia.getValorDouble());
+        cliente.setEstado(vista.txEstado.isSelected());
+        cliente.setNombre(vista.txNombre.getText());
+        return cliente;
+    }
 
 }
 
-class ChoferesTableModel extends AbstractTableModel {
+class ClienteTableModel extends AbstractTableModel {
 
-    private List<Chofer> lista;
-    private String[] columnNames = {"Codigo", "Nombre", "Camion"};
+    private List<Cliente> lista;
+    private String[] columnNames = {"Nombre", "CUIT"};
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-    public ChoferesTableModel() {
+    public ClienteTableModel() {
         lista = new ArrayList<>();
 
     }
 
-    public void agregarDato(Chofer obj) {
+    public void agregarDato(Cliente obj) {
         lista.add(obj);
         fireTableRowsInserted(lista.size() - 1, lista.size() - 1);
     }
@@ -235,22 +236,20 @@ class ChoferesTableModel extends AbstractTableModel {
     }
 
     public Object getValueAt(int row, int col) {
-        Chofer obj = lista.get(row);
+        Cliente obj = lista.get(row);
         switch (col) {
             case 0:
                 //return obj.getFecha().format(dateFormatter); // Formatear la fecha;
-                return obj.getCodigo();
-            case 1:
                 return obj.getNombre();
-            case 2:
-                return obj.getCamion().getPatente();
+            case 1:
+                return obj.getCuil();
             // return formatearImporte(obj.getTotal()); // Formatear el importe
             default:
                 return null;
         }
     }
 
-    public Chofer getDatoAt(int row) {
+    public Cliente getDatoAt(int row) {
         return lista.get(row);
     }
 
@@ -264,7 +263,7 @@ class ChoferesTableModel extends AbstractTableModel {
         return columnNames[column];
     }
 
-    public void setData(List<Chofer> obj) {
+    public void setData(List<Cliente> obj) {
         this.lista = obj;
         fireTableDataChanged();
     }

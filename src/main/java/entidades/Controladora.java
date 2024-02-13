@@ -33,6 +33,15 @@ public class Controladora {
     public List<Entrega> traerEntregaPorClienteAConfirmar(Cliente cliente){
         return ctrl.traerEntregaPorClienteAConfirmar(cliente);
     }
+    public List<CamionOdometro> traerCamionOdometroPorCamion(int codigo){
+        return ctrl.traerCamionOdometroPorCamion(codigo);
+    }
+    public List<CamionOdometro> traerCamionOdometroPorFecha(LocalDate fecha){
+        return ctrl.traerCamionOdometroPorFecha(fecha);
+    }
+    public List<CamionOdometro> traerCamionOdometroPorFechaCamion(LocalDate fecha, int codigo){
+        return ctrl.traerCamionOdometroPorFechaCamion(fecha,codigo);
+    }
     
     // -----------------   OBJETO ------------------
     public void crearObjeto(Objeto obj){
@@ -56,7 +65,8 @@ public class Controladora {
     public List<Objeto> traerListaObjetos(){
         return ctrl.traerListaObjetos();
     }
-    // -----------------   OBJETO ------------------
+    
+    // -----------------   CARGA MORRO  ------------------
     public void crearCargaMorro(CargaMorro obj){
         ctrl.crearCargaMorro(obj);
     }
@@ -232,6 +242,23 @@ public class Controladora {
     }
     public List<Morro> traerListaMorros(){
         return ctrl.traerListaMorros();
+    }
+    
+    // -----------------   CARGA MORRO  ------------------
+    public void crearCamionOdometro(CamionOdometro obj){
+        ctrl.crearCamionOdometro(obj);
+    }
+    public void eliminarCamionOdometro(int id){
+        ctrl.eliminarCamionOdometro(id);
+    }
+    public void editarCamionOdometro(CamionOdometro obj){
+        ctrl.editarCamionOdometro(obj);
+    }
+    public CamionOdometro traerCamionOdometro(int id){
+        return ctrl.traerCamionOdometro(id);
+    }
+    public List<CamionOdometro> traerListaCamionOdometros(){
+        return ctrl.traerListaCamionOdometros();
     }
     
 } // Fin de la Clase

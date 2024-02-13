@@ -1,4 +1,6 @@
 
+import entidades.Camion;
+import entidades.Controladora;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
@@ -22,16 +24,13 @@ public class Pruebas {
     private static final DecimalFormat formatoDecimal = new DecimalFormat("#,##0.00");
 
     public static void main(String[] args) {
-        String texto = "150.0";
-        if (texto.contains(",")) {
-            texto = texto.replace(".", "").replace(",", ".");
-        }
-        double numero = Double.parseDouble(texto);
-        String texto2 = String.format("%.2f",numero);
-        try {
-            System.out.println("Como se Formatea Final mente " + formatoDecimal.format(formatoDecimal.parse(texto2.replace(".","")).doubleValue()));
-        } catch (ParseException ex) {
-            Logger.getLogger(Pruebas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        Controladora ctrl = new Controladora();
+        Camion camion = ctrl.traerCamion(2);
+        System.out.println("Odometro del Camion " + camion.getOdometro());
+        System.out.println("Teorico del Camion " + camion.getTeorico());
+        camion.setOdometro(250.00);
+        camion.setTeorico(250.00);
+        ctrl.editarCamion(camion);
+        System.out.println("Se Cambiaron los Datos!!");
     }
 }

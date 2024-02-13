@@ -1,5 +1,6 @@
 package persistencias;
 
+import entidades.CamionOdometro;
 import entidades.CargaMorro;
 import entidades.Cliente;
 import entidades.Combustible;
@@ -166,5 +167,44 @@ public class ConsultasJPA {
         }
     }
     
+    /*******************  CAMION ODOMETRO  ***********************/
+     
+    public List<CamionOdometro> traerCamionOdometroPorCamion(int codigo){
+        em = getEntityManager();
+        try{
+            TypedQuery<CamionOdometro> query = em.createNamedQuery("CamionOdometro.findByCamion",CamionOdometro.class);
+            query.setParameter("codigo",codigo);
+            return query.getResultList();
+        }finally{
+            if (em != null && em.isOpen()){
+                em.close();
+            }
+        }
+    }
+    public List<CamionOdometro> traerCamionOdometroPorFecha(LocalDate fecha){
+        em = getEntityManager();
+        try{
+            TypedQuery<CamionOdometro> query = em.createNamedQuery("CamionOdometro.findByFecha",CamionOdometro.class);
+            query.setParameter("fecha",fecha);
+            return query.getResultList();
+        }finally{
+            if (em != null && em.isOpen()){
+                em.close();
+            }
+        }
+    }
+    public List<CamionOdometro> traerCamionOdometroPorFechaCamino(LocalDate fecha,int codigo){
+        em = getEntityManager();
+        try{
+            TypedQuery<CamionOdometro> query = em.createNamedQuery("CamionOdometro.findByFechaCamion",CamionOdometro.class);
+            query.setParameter("fecha",fecha);
+            query.setParameter("codigo",codigo);
+            return query.getResultList();
+        }finally{
+            if (em != null && em.isOpen()){
+                em.close();
+            }
+        }
+    }
 
 }

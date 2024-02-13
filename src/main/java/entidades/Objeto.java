@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,5 +34,18 @@ public class Objeto implements Serializable {
     Boolean estado;
     @OneToMany (mappedBy = "objeto", cascade = CascadeType.ALL, fetch = FetchType.LAZY) 
     List<Permiso> permisos;
+    
+     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Objeto objeto = (Objeto) obj;
+        return codigo == objeto.codigo;  // Ajusta según la estructura de tu clase
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(codigo);  // Ajusta según la estructura de tu clase
+    }
     
 }

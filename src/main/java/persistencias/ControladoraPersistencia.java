@@ -1,6 +1,7 @@
 package persistencias;
 
 import entidades.Camion;
+import entidades.CamionOdometro;
 import entidades.CargaMorro;
 import entidades.Chofer;
 import entidades.Cliente;
@@ -42,6 +43,7 @@ public class ControladoraPersistencia {
     MorroJpaController morroJpa;
     ConsultasJPA consultasJpa;
     CargaMorroJpaController cargaMorroJpa;
+    CamionOdometroJpaController odometroJpa;
 
     public ControladoraPersistencia() {
         EntityManagerFactory emf = getEntityManagerFactory();
@@ -57,6 +59,7 @@ public class ControladoraPersistencia {
         morroJpa = new MorroJpaController(emf);
         consultasJpa = new ConsultasJPA(emf);
         cargaMorroJpa = new CargaMorroJpaController(emf);
+        odometroJpa = new CamionOdometroJpaController(emf);
     
     }
     // ----------------- OTRAS CONSULTAS -------------
@@ -82,6 +85,15 @@ public class ControladoraPersistencia {
     
     public List<Entrega> traerEntregaPorClienteAConfirmar(Cliente cliente){
         return consultasJpa.traerEntregaPorClienteAConfirmar(cliente);
+    }
+    public List<CamionOdometro> traerCamionOdometroPorCamion(int codigo){
+        return consultasJpa.traerCamionOdometroPorCamion(codigo);
+    }
+    public List<CamionOdometro> traerCamionOdometroPorFecha(LocalDate fecha){
+        return consultasJpa.traerCamionOdometroPorFecha(fecha);
+    }
+    public List<CamionOdometro> traerCamionOdometroPorFechaCamion(LocalDate fecha, int codigo){
+        return consultasJpa.traerCamionOdometroPorFechaCamino(fecha,codigo);
     }
 
     // -----------------   OBJETO ------------------
@@ -422,6 +434,35 @@ public class ControladoraPersistencia {
         return choferJpa.findChoferEntities();
     }
     
+    // -----------------   CAMION ODOMETRO ---------------
+    public void crearCamionOdometro(CamionOdometro odo) {
+        odometroJpa.create(odo);
+    }
+
+    public void eliminarCamionOdometro(int id) {
+        try {
+            odometroJpa.destroy(id);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void editarCamionOdometro(CamionOdometro odo) {
+        try {
+            odometroJpa.edit(odo);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public CamionOdometro traerCamionOdometro(int id) {
+        return odometroJpa.findCamionOdometro(id);
+    }
+
+    public List<CamionOdometro> traerListaCamionOdometros() {
+        return odometroJpa.findCamionOdometroEntities();
+    }
+    
        
     // ------------------ CODIGO PARA CARGAR CONFIGURACION DEL CONFIG.PROPERTIE --------------------------
 
@@ -453,7 +494,7 @@ public class ControladoraPersistencia {
         
 
         // Configura la fábrica de EntityManager con los datos del archivo de propiedades
-         EntityManagerFactory emf = Persistence.createEntityManagerFactory("SistemaGestionUP", createProperties(url, user, password));
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("SistemaGestionUP", createProperties(url, user, password));
         return emf;
     }
 

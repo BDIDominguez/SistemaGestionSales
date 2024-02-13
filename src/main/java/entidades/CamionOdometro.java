@@ -1,17 +1,15 @@
 package entidades;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.List;
+import java.time.LocalDate;
 import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -20,31 +18,33 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @Entity
-@Table(name = "Camiones")
-public class Camion implements Serializable {
+@Table(name = "CamionesOdometro")
+@NamedQueries({
+    @NamedQuery(
+            name = "CamionOdometro.findByFecha",
+            query = "SELECT e FROM CamionOdometro e WHERE e.fecha = :fecha"
+    ),
+    @NamedQuery(
+            name = "CamionOdometro.findByFechaCamion",
+            query = "SELECT e FROM CamionOdometro e WHERE e.fecha = :fecha and e.codigoCamion = :codigo"
+    ),
+    @NamedQuery(
+            name = "CamionOdometro.findByCamion",
+            query = "SELECT e FROM CamionOdometro e WHERE e.codigoCamion = :codigo order by e.codigo"
+    )
+})
+public class CamionOdometro implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int codigo;
     @Column
-    String patente;
+    int codigoCamion;
     double odometro;
     double teorico;
-    @OneToOne (mappedBy = "camion", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    Chofer chofer;
-    @OneToMany(mappedBy = "camion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<Combustible> cargas;
-    @OneToMany(mappedBy = "camion", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<Entrega> entregas;
     Boolean estado;
-    
-    @Override
-    public String toString() {
-        return patente ;
-    }
-    
-    public double diferenciaTeorica(){
-        return odometro-teorico;
-    }
+    Boolean igualados;
+    LocalDate fecha;
+
     
     @Override
     public boolean equals(Object obj){
@@ -54,7 +54,7 @@ public class Camion implements Serializable {
         if (obj == null || getClass() != obj.getClass()){
             return false;
         }
-        Camion camion = (Camion) obj;
+        CamionOdometro camion = (CamionOdometro) obj;
         return codigo == camion.codigo;
     }
     @Override

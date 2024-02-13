@@ -1,0 +1,32 @@
+################ Errores encontrados hasta el momento ################################
+11:04 10/2/2024 -- En la pantalla de Carga Morro - los Stock de los morros no se muestran en la tabla solo 
+		    el primero -- CORREGIDO 11:01 12/2/2024
+11:04 10/2/2024 -- En la pantalla de Carga Morro - los % de pileta y barrido se muestran con demaciados puntos
+		    decimales que lo hacen imposible de ver -- CORREGIDO 11:02 12/2/2024
+11:04 10/2/2024 -- En la pantalla Produccion Diaria - cuando se usa el checkbox para desactivar una carga el 
+		    "stock" del morro no se modifican. CORREGIDOS 14:53 10/2/2024
+11:06 10/2/2024 -- En la pantalla Produccion Diaria - se cambio el metodo que carga la tabla para que solo 
+		    muestre los que tienen estado en true por que no se controla que pasa con el stock del 
+	            morro si se reactiva. CORREGIDO 14:53 10/2/2024
+14:55 10/2/2024 -- Cuando se crea un nuevo Objeto en por medio de la clase ComandosComunes repite varios
+		    no se porque, es necesario revisar.
+
+18:14 10/2/2024 -- En la Pantalla Carga Entrega no controla la etapa de la entrega en teoria solo las que
+		    esten en cero (0) se deben usar en esa pantalla una vez que pasan de etapa ya fueron
+		    cobradas u otra cosa!!! -- 11:16 12/2/2024 FALTA COMPROBARLO
+
+22:17 11/2/2024 -- En la pantalla de Produccion Diara (carga de Morro) en la tabla esta el cod.Morro es
+		    molesto el numero seria mejor el nombre asi que ver la forma de poder cambiarlo.
+
+22:18 11/2/2024 -- Los TextArea no se cortan el texto y lo bajan al llegar al final sino que se extienden
+		    quedan feos. -- 11:24 12/2/2024 CORREGIDO HASTA EL MOMENTO
+22:19 11/2/2024 -- En Produccion Diaria al darle Nuevo el combo Morro no se situa en el primer item. -- 11:27 12/2/2024 CORREGIDO
+22:20 11/2/2024 -- En Produccion Diaria el ComboBox no se muestra ordenado alfabeticamente queda feo.  -- 12:01 12/2/2024 CORREGIDO
+22:22 11/2/2024 -- En la Pantalla Principal Darle Orden a los ItemMenu primero Crear Morro - Cargar
+		    Morro - Luego envios, luego Confirmar.
+22:23 11/2/2024 -- En Envio a Cliente no cambian el kilometraje teorico del Camion al realizar el Envio -- 12:41 12/2/2024 CORREGIDO
+22:24 11/2/2024 -- En Envio Clientes los Text no son los personalizados por ende no trabajan de la forma
+		    deseada el de cantidad teorica no se formatea.
+22:26 11/2/2024 -- En Confirmar Entrega Cliente no esta completo revisar por lo pronto si selecciono una
+			fila esta no se actualizaen los text, ademas inicia con el boton confirmar activo
+

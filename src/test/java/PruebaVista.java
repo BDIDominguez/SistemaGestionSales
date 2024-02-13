@@ -3,7 +3,9 @@ import controladores.ControladorVistaCamiones;
 import controladores.ControladorVistaCargaCombustible;
 import controladores.ControladorVistaCargaMorros;
 import controladores.ControladorVistaChoferes;
+import controladores.ControladorVistaClientes;
 import controladores.ControladorVistaConfirmarEntregas;
+import controladores.ControladorVistaConfirmarOdometro;
 import controladores.ControladorVistaMorros;
 import entidades.ComandosComunes;
 import entidades.Controladora;
@@ -17,7 +19,9 @@ import vistas.VistaCamiones;
 import vistas.VistaCargaCombustible;
 import vistas.VistaCargaMorros;
 import vistas.VistaChoferes;
+import vistas.VistaClientes;
 import vistas.VistaConfirmarEntregas;
+import vistas.VistaConfirmarOdometro;
 import vistas.VistaMorros;
 import vistas.VistaPantallaPrincipal;
 
@@ -71,12 +75,22 @@ public class PruebaVista {
         ControladorVistaCamiones control = new ControladorVistaCamiones(menu, vista, comandos, usuario ,ctrl, obj);
         control.iniciar();
         */
-        
+        /*
         Objeto obj = ctrl.traerObjeto(12);
         VistaChoferes vista = new VistaChoferes();
         ControladorVistaChoferes control = new ControladorVistaChoferes(menu, vista, comandos, usuario ,ctrl, obj);
         control.iniciar();
-        
+        */
+        /*
+        Objeto obj = ctrl.traerObjeto(13);
+        VistaClientes vista = new VistaClientes();
+        ControladorVistaClientes control = new ControladorVistaClientes(menu, vista, comandos, usuario ,ctrl, obj);
+        control.iniciar();
+        */
+        Objeto obj = ctrl.traerObjeto(14);
+        VistaConfirmarOdometro vista = new VistaConfirmarOdometro();
+        ControladorVistaConfirmarOdometro control = new ControladorVistaConfirmarOdometro(menu, vista, comandos, usuario ,ctrl, obj);
+        control.iniciar();
     }
     
 }

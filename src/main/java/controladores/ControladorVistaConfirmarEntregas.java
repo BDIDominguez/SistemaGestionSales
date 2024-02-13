@@ -15,10 +15,12 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -37,8 +39,8 @@ public class ControladorVistaConfirmarEntregas implements ActionListener, Proper
     Usuario usuario;
     Controladora ctrl;
     Objeto obj;
-    Entrega entregaActual;
     EntregaTableModel modelo = new EntregaTableModel();
+    Entrega objetoActual;
 
     public ControladorVistaConfirmarEntregas(VistaPantallaPrincipal menu, VistaConfirmarEntregas vista, ComandosComunes comandos, Usuario usuario, Controladora ctrl, Objeto obj) {
         this.menu = menu;
@@ -65,6 +67,8 @@ public class ControladorVistaConfirmarEntregas implements ActionListener, Proper
         menu.fondo.moveToFront(vista);
         vista.requestFocus();
         vista.dcFecha.setDate(new Date());
+        vista.btCargar.setEnabled(false);
+        vista.txTeorioco.setEditable(false);
         cargaComboBox();
         configuraTabla();
     }
@@ -72,7 +76,27 @@ public class ControladorVistaConfirmarEntregas implements ActionListener, Proper
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+        if (e.getSource() == vista.btSalir){
+            vista.dispose();
+        }
+         if (e.getSource() == vista.btCargar) {
+            if (comandos.tienePermiso(usuario, obj, "Crear")) {
+                int vRespuesta = JOptionPane.showConfirmDialog(vista,"Seguro de Confirmar","Confirmar Envio",JOptionPane.YES_NO_OPTION);
+                if (vRespuesta == JOptionPane.YES_OPTION){
+                    objetoActual.setConfirmado(vista.txConfirmado.getValorDouble());
+                    objetoActual.setFecentrega(vista.dcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                    objetoActual.setEtapa(1);
+                    ctrl.editarEntrega(objetoActual);
+                    Cliente cliente = objetoActual.getCliente();
+                    cliente.sumarCantidad(1);
+                    ctrl.editarCliente(cliente);
+                    cargarTabla();
+                    vista.btCargar.setEnabled(false);
+                }
+            }else{
+                JOptionPane.showMessageDialog(vista, "No tienes permiso para Confirmar Entregas");
+            }
+         }
     }
 
     @Override
@@ -82,7 +106,14 @@ public class ControladorVistaConfirmarEntregas implements ActionListener, Proper
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        
+        if (!e.getValueIsAdjusting()) {
+            int fila = vista.tabla.getSelectedRow();
+            if (fila != -1) {
+                objetoActual = modelo.getDatoAt(fila);
+                vista.btCargar.setEnabled(true);
+                mostrarObjeto();
+            }
+        }
     }
 
     private void cargaComboBox() {
@@ -107,6 +138,13 @@ public class ControladorVistaConfirmarEntregas implements ActionListener, Proper
         Cliente cliente = (Cliente) vista.cbCliente.getSelectedItem();
         List<Entrega> lista = ctrl.traerEntregaPorClienteAConfirmar(cliente);
         modelo.setData(lista);     
+    }
+
+    private void mostrarObjeto() {
+        vista.txConfirmado.setText(objetoActual.getTeorico()+ "");
+        vista.txTeorioco.setText(objetoActual.getTeorico() + "");
+        vista.btCargar.setEnabled(true);
+        vista.txConfirmado.requestFocus();
     }
     
 }
