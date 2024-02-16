@@ -38,12 +38,7 @@ public class VistaConfirmarOdometro extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         txOdometro = new Utilidades.MiCampoDouble();
         chIgualar = new javax.swing.JCheckBox();
-        chEstado = new Utilidades.MiCheckBox();
-        btGuardar = new javax.swing.JButton();
         btSalir = new javax.swing.JButton();
-        btEliminar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabla = new javax.swing.JTable();
         btNuevo = new javax.swing.JButton();
 
         setTitle("Confirmar el Kilometraje de los Camiones");
@@ -56,7 +51,7 @@ public class VistaConfirmarOdometro extends javax.swing.JInternalFrame {
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 495, Short.MAX_VALUE)
+            .addGap(0, 251, Short.MAX_VALUE)
         );
 
         jLabel1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -79,29 +74,8 @@ public class VistaConfirmarOdometro extends javax.swing.JInternalFrame {
         chIgualar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         chIgualar.setText("Igualar");
 
-        btGuardar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        btGuardar.setText("Guardar");
-        btGuardar.setEnabled(false);
-
         btSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         btSalir.setText("Salir");
-
-        btEliminar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        btEliminar.setText("Eliminar");
-        btEliminar.setEnabled(false);
-
-        tabla.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(tabla);
 
         btNuevo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         btNuevo.setText("Nuevo");
@@ -111,45 +85,38 @@ public class VistaConfirmarOdometro extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dcFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txOdometro, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(105, 105, 105)
-                                .addComponent(chEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(4, 4, 4)
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txTeorico, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(chIgualar))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btNuevo)
                         .addGap(18, 18, 18)
-                        .addComponent(btGuardar)
-                        .addGap(40, 40, 40)
-                        .addComponent(btEliminar)
-                        .addGap(42, 42, 42)
-                        .addComponent(btSalir)
-                        .addGap(15, 15, 15)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbCamion, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dcFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txOdometro, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(4, 4, 4)
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txTeorico, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(chIgualar))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(98, 98, 98)
+                        .addComponent(btNuevo)
+                        .addGap(81, 81, 81)
+                        .addComponent(btSalir)))
+                .addGap(15, 15, 15)
                 .addComponent(jLayeredPane1))
         );
         layout.setVerticalGroup(
@@ -173,16 +140,11 @@ public class VistaConfirmarOdometro extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(txTeorico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(chIgualar))
-                .addGap(18, 18, 18)
-                .addComponent(chEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btGuardar)
-                    .addComponent(btEliminar)
-                    .addComponent(btSalir)
-                    .addComponent(btNuevo))
+                    .addComponent(btNuevo)
+                    .addComponent(btSalir))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1)
         );
 
         pack();
@@ -190,12 +152,9 @@ public class VistaConfirmarOdometro extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JButton btEliminar;
-    public javax.swing.JButton btGuardar;
     public javax.swing.JButton btNuevo;
     public javax.swing.JButton btSalir;
     public javax.swing.JComboBox<Camion> cbCamion;
-    public Utilidades.MiCheckBox chEstado;
     public javax.swing.JCheckBox chIgualar;
     public com.toedter.calendar.JDateChooser dcFecha;
     private javax.swing.JLabel jLabel1;
@@ -203,8 +162,6 @@ public class VistaConfirmarOdometro extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JTable tabla;
     public Utilidades.MiCampoDouble txOdometro;
     public Utilidades.MiCampoDouble txTeorico;
     // End of variables declaration//GEN-END:variables

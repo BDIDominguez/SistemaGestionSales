@@ -1,5 +1,6 @@
 package entidades;
 
+import jakarta.persistence.Cacheable;
 import java.io.Serializable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,6 +23,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
+@Cacheable(false)
 @Entity
 @Table (name = "Permisos")
 public class Permiso implements Serializable {

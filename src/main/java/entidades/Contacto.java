@@ -1,5 +1,6 @@
 package entidades;
 
+import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -25,6 +26,7 @@ import lombok.experimental.FieldDefaults;
 @Data
 @NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
+@Cacheable(false)
 @Entity
 @Table (name = "Contactos")
 public class Contacto implements Serializable {

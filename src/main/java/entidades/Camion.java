@@ -1,5 +1,6 @@
 package entidades;
 
+import jakarta.persistence.Cacheable;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -19,6 +20,7 @@ import lombok.experimental.FieldDefaults;
 
 @Data
 @FieldDefaults(level=AccessLevel.PRIVATE)
+@Cacheable(false)
 @Entity
 @Table(name = "Camiones")
 public class Camion implements Serializable {
