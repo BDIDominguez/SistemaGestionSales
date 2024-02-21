@@ -25,6 +25,7 @@ public class Chofer implements Serializable {
     int codigo;
     @Column
     String nombre;
+    @Column(length=1000)
     String obs;
     @OneToOne
     @JoinColumn(name = "camion_id")

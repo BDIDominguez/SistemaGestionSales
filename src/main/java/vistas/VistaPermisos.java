@@ -66,12 +66,15 @@ public class VistaPermisos extends javax.swing.JInternalFrame {
         chLeer.setText("Leer");
 
         btGuardar.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        btGuardar.setMnemonic('g');
         btGuardar.setText("Guardar");
 
         btSalir.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        btSalir.setMnemonic('s');
         btSalir.setText("Salir");
 
         btEliminar.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        btEliminar.setMnemonic('e');
         btEliminar.setText("Eliminar");
 
         jDesktopPane1.setLayer(jLabel2, javax.swing.JLayeredPane.DEFAULT_LAYER);

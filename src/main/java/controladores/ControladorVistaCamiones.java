@@ -234,7 +234,7 @@ class CamionesTableModel extends AbstractTableModel {
             case 1:
                 return obj.getPatente();
             case 2:
-                return obj.getOdometro();
+                return formatearImporte(obj.getOdometro());
             // return formatearImporte(obj.getTotal()); // Formatear el importe
             default:
                 return null;

@@ -69,6 +69,12 @@ public class ControladorVistaCargaMorros implements ActionListener, ListSelectio
 
         // Agregando los Tabla a escuchar
         vista.tabla.getSelectionModel().addListSelectionListener(this);
+        vista.tabla.addKeyListener(this);  // Agregar el KeyListener a la tabla
+
+        //Capturando las teclas del jTextArea
+        vista.txObs.addKeyListener(this);
+        
+        
 
     }
 
@@ -201,7 +207,21 @@ public class ControladorVistaCargaMorros implements ActionListener, ListSelectio
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        if (e.getSource() == vista.txObs) {
+            if (e.getKeyCode() == KeyEvent.VK_TAB) {
+                // Si la tecla presionada es Tab, establece el foco en jText2
+                vista.chEstado.requestFocusInWindow();
+                e.consume(); // Evita que se inserte un carácter de tabulación en txObs
+            }
+        }
+        if (e.getSource() == vista.tabla) {
+            if (e.getKeyCode() == KeyEvent.VK_TAB && !e.isShiftDown()) {
+                // Si la tecla presionada es Tab y no se mantiene presionado Shift,
+                // establece el foco en el siguiente objeto después de la tabla
+                vista.cbCamion.requestFocusInWindow();
+                e.consume(); // Evita que se inserte un carácter de tabulación en la tabla
+            }
+        }
     }
 
     @Override
@@ -235,11 +255,11 @@ public class ControladorVistaCargaMorros implements ActionListener, ListSelectio
 
     private void configuraTabla() {
         vista.tabla.setModel(modelo);
-        vista.tabla.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // ?
-        vista.tabla.getColumnModel().getColumn(0).setPreferredWidth(90);
-        vista.tabla.getColumnModel().getColumn(1).setPreferredWidth(123);
-        vista.tabla.getColumnModel().getColumn(2).setPreferredWidth(123);
-        vista.tabla.getColumnModel().getColumn(3).setPreferredWidth(141);
+        vista.tabla.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // 477
+        vista.tabla.getColumnModel().getColumn(0).setPreferredWidth(167);
+        vista.tabla.getColumnModel().getColumn(1).setPreferredWidth(100);
+        vista.tabla.getColumnModel().getColumn(2).setPreferredWidth(100);
+        vista.tabla.getColumnModel().getColumn(3).setPreferredWidth(110);
         cargarTabla();
     }
 
@@ -308,12 +328,12 @@ public class ControladorVistaCargaMorros implements ActionListener, ListSelectio
 class CargaMorroTableModel extends AbstractTableModel {
 
     private List<CargaMorro> lista;
-    private String[] columnNames = {"Cod. Morro", "Barrido", "Pileta", "Total"};
+    private String[] columnNames = {"Morro", "Barrido", "Pileta", "Total"};
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    Controladora ctrl = new Controladora();
 
     public CargaMorroTableModel() {
         lista = new ArrayList<>();
-
     }
 
     public void agregarDato(CargaMorro combustible) {
@@ -334,7 +354,8 @@ class CargaMorroTableModel extends AbstractTableModel {
         switch (col) {
             case 0:
                 //return obj.getFecha().format(dateFormatter); // Formatear la fecha;
-                return obj.getCodigoMorro();
+                String cadena = ctrl.traerMorro(obj.getCodigoMorro()).getNombre();
+                return cadena;
             case 1:
                 return formatearImporte(obj.getBarrido());
             case 2:

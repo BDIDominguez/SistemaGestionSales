@@ -64,15 +64,19 @@ public class VistaCamiones extends javax.swing.JInternalFrame {
         txTeorico.setFocusable(false);
 
         btGuardar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btGuardar.setMnemonic('g');
         btGuardar.setText("Guardar");
 
         btNuevo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btNuevo.setMnemonic('n');
         btNuevo.setText("Nuevo");
 
         btEliminar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btEliminar.setMnemonic('e');
         btEliminar.setText("Eliminar");
 
         btSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btSalir.setMnemonic('s');
         btSalir.setText("Salir");
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(

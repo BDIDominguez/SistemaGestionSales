@@ -96,7 +96,7 @@ public class MiCampoDouble extends JTextField {
     
     @Override
     public void setText(String texto) {
-        texto = texto.replaceAll("[^0-9.,]", "");
+        texto = texto.replaceAll("[^0-9.,-]", "");
         if (texto.contains(",")) {
             texto = texto.replace(".", "").replace(",", ".");
         }

@@ -1,13 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controladores;
 
 import entidades.Cliente;
 import entidades.ComandosComunes;
 import entidades.Controladora;
 import entidades.Entrega;
+import entidades.Morro;
 import entidades.Objeto;
 import entidades.Usuario;
 import java.awt.event.ActionEvent;
@@ -28,11 +25,8 @@ import javax.swing.table.AbstractTableModel;
 import vistas.VistaConfirmarEntregas;
 import vistas.VistaPantallaPrincipal;
 
-/**
- *
- * @author Dario
- */
-public class ControladorVistaConfirmarEntregas implements ActionListener, PropertyChangeListener, ListSelectionListener{
+public class ControladorVistaConfirmarEntregas implements ActionListener, PropertyChangeListener, ListSelectionListener {
+
     VistaPantallaPrincipal menu;
     VistaConfirmarEntregas vista;
     ComandosComunes comandos;
@@ -49,7 +43,7 @@ public class ControladorVistaConfirmarEntregas implements ActionListener, Proper
         this.usuario = usuario;
         this.ctrl = ctrl;
         this.obj = obj;
-        
+
         // escuchando a los botones
         vista.btSalir.addActionListener(this);
         vista.btCargar.addActionListener(this);
@@ -59,8 +53,11 @@ public class ControladorVistaConfirmarEntregas implements ActionListener, Proper
 
         // Agregando los Tabla a escuchar
         vista.tabla.getSelectionModel().addListSelectionListener(this);
+
+        // Agregando el Combo Para que actualize la tabla!!
+        vista.cbCliente.addActionListener(this);
     }
-    
+
     public void iniciar() {
         menu.fondo.add(vista);
         vista.setVisible(true);
@@ -72,36 +69,44 @@ public class ControladorVistaConfirmarEntregas implements ActionListener, Proper
         cargaComboBox();
         configuraTabla();
     }
-    
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == vista.btSalir){
+        if (e.getSource() == vista.btSalir) {
             vista.dispose();
         }
-         if (e.getSource() == vista.btCargar) {
+        if (e.getSource() == vista.btCargar) {
             if (comandos.tienePermiso(usuario, obj, "Crear")) {
-                int vRespuesta = JOptionPane.showConfirmDialog(vista,"Seguro de Confirmar","Confirmar Envio",JOptionPane.YES_NO_OPTION);
-                if (vRespuesta == JOptionPane.YES_OPTION){
+                int vRespuesta = JOptionPane.showConfirmDialog(vista, "Seguro de Confirmar", "Confirmar Envio", JOptionPane.YES_NO_OPTION);
+                if (vRespuesta == JOptionPane.YES_OPTION) {
                     objetoActual.setConfirmado(vista.txConfirmado.getValorDouble());
                     objetoActual.setFecentrega(vista.dcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
                     objetoActual.setEtapa(1);
                     ctrl.editarEntrega(objetoActual);
+                    // Se modifica el clietne para sumar los Datos de ventas confirmadas.
                     Cliente cliente = objetoActual.getCliente();
                     cliente.sumarCantidad(1);
                     ctrl.editarCliente(cliente);
+                    // Se debe descontar del morro las cantidades confirmadas para llevar el Stock
+                    Morro morro = objetoActual.getMorro();
+                    morro.quitarDelMorro(objetoActual.getConfirmado(), 0, 0); // Se decuenta del morro la cantidad confirmada!!
+                    ctrl.editarMorro(morro);
+
                     cargarTabla();
                     vista.btCargar.setEnabled(false);
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(vista, "No tienes permiso para Confirmar Entregas");
             }
-         }
+        }
+        if (e.getSource() == vista.cbCliente){
+            cargarTabla();
+        }
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        
+
     }
 
     @Override
@@ -119,7 +124,7 @@ public class ControladorVistaConfirmarEntregas implements ActionListener, Proper
     private void cargaComboBox() {
         List<Cliente> lista = ctrl.traerListaClientes();
         for (Cliente cliente : lista) {
-            if (cliente.getEstado()){
+            if (cliente.getEstado()) {
                 vista.cbCliente.addItem(cliente);
             }
         }
@@ -137,17 +142,18 @@ public class ControladorVistaConfirmarEntregas implements ActionListener, Proper
     private void cargarTabla() {
         Cliente cliente = (Cliente) vista.cbCliente.getSelectedItem();
         List<Entrega> lista = ctrl.traerEntregaPorClienteAConfirmar(cliente);
-        modelo.setData(lista);     
+        modelo.setData(lista);
     }
 
     private void mostrarObjeto() {
-        vista.txConfirmado.setText(objetoActual.getTeorico()+ "");
+        vista.txConfirmado.setText(objetoActual.getTeorico() + "");
         vista.txTeorioco.setText(objetoActual.getTeorico() + "");
         vista.btCargar.setEnabled(true);
         vista.txConfirmado.requestFocus();
     }
-    
+
 }
+
 class EntregaTableModel extends AbstractTableModel {
 
     private List<Entrega> lista;
@@ -182,7 +188,7 @@ class EntregaTableModel extends AbstractTableModel {
                 return obj.getRemito();
             case 2:
                 return formatearImporte(obj.getTeorico());
-            
+
             default:
                 return null;
         }

@@ -82,15 +82,19 @@ public class VistaChoferes extends javax.swing.JInternalFrame {
         jLabel4.setText("Camion");
 
         btNuevo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btNuevo.setMnemonic('n');
         btNuevo.setText("Nuevo");
 
         btGuardar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btGuardar.setMnemonic('g');
         btGuardar.setText("Guardar");
 
         btEliminar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btEliminar.setMnemonic('e');
         btEliminar.setText("Eliminar");
 
         btSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btSalir.setMnemonic('s');
         btSalir.setText("Salir");
 
         jLayeredPane1.setLayer(txCodigo, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -156,7 +160,6 @@ public class VistaChoferes extends javax.swing.JInternalFrame {
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jLayeredPane1Layout.createSequentialGroup()

@@ -26,9 +26,11 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
 import vistas.VistaEntregas;
 import vistas.VistaPantallaPrincipal;
 
@@ -93,7 +95,6 @@ public class ControladorVistaEntregas implements ActionListener, ListSelectionLi
         cargarMorros();
         cargarCamiones();
         modelarTabla();
-        
 
     }
 
@@ -106,14 +107,20 @@ public class ControladorVistaEntregas implements ActionListener, ListSelectionLi
             if (comandos.tienePermiso(usuario, obj, "Crear")) {
                 vista.dcFecha.setDate(new Date());
                 String remito = ctrl.ultimoNumeroRemitoEntrega();
-                String[] comp = remito.split("-");
-                vista.txSerie.setText(comp[0]);
-                int numero = Integer.parseInt(comp[1]);
-                numero = numero+1;
-                String cadena = numero + "";
-                int cantidadDeCeros = 8 - cadena.length();
-                vista.txRemito.setText(String.format("%0" + cantidadDeCeros + "d%s", 0, cadena));
-                vista.txTeorico.setText("0.00");
+                String cadena;
+                if (remito.equalsIgnoreCase("01")) {
+                    cadena = "00000001";
+                } else {
+                    String[] comp = remito.split("-");
+                    vista.txSerie.setText(comp[0]);
+                    int numero = Integer.parseInt(comp[1]);
+                    numero = numero + 1;
+                    cadena = numero + "";
+                    int cantidadDeCeros = 8 - cadena.length();
+                    cadena = String.format("%0" + cantidadDeCeros + "d%s", 0, cadena);
+                }
+                vista.txRemito.setText(cadena);
+                vista.txTeorico.setText("0,00");
                 vista.btGuardar.setEnabled(true);
                 vista.btEliminar.setEnabled(false);
                 vista.btNuevo.setEnabled(false);
@@ -140,7 +147,7 @@ public class ControladorVistaEntregas implements ActionListener, ListSelectionLi
                     entrega.setFecsalida(vista.dcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
                     entrega.setMorro((Morro) vista.cbMorro.getSelectedItem());
                     entrega.setRemito(vista.txSerie.getText() + "-" + vista.txRemito.getText());
-                    entrega.setTeorico(Double.parseDouble(vista.txTeorico.getText().replace(",", ".")));
+                    entrega.setTeorico(vista.txTeorico.getValorDouble());
                     entrega.setEtapa(0);
                     entrega.setFactura("");
                     entrega.setEstado(true);
@@ -163,13 +170,13 @@ public class ControladorVistaEntregas implements ActionListener, ListSelectionLi
                         entrega.setFecsalida(vista.dcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
                         entrega.setMorro((Morro) vista.cbMorro.getSelectedItem());
                         entrega.setEstado(true);
-                        entrega.setTeorico(Double.parseDouble(vista.txTeorico.getText().replace(",", ".")));
+                        entrega.setTeorico(vista.txTeorico.getValorDouble());
                         String nuevoRemito = vista.txSerie.getText() + "-" + vista.txRemito.getText();
                         boolean actualizar = true;
                         if (!remito.equalsIgnoreCase(nuevoRemito)) {
                             if (ctrl.existeNumeroRemito(nuevoRemito)) {
                                 JOptionPane.showMessageDialog(vista, "El nuevo Numero de Remito ya esta en uso!!");
-                                
+
                                 actualizar = false;
                             }
                         }
@@ -306,9 +313,10 @@ public class ControladorVistaEntregas implements ActionListener, ListSelectionLi
                 vista.btGuardar.setEnabled(false);
                 vista.txRemito.requestFocus();
             } else {
-                vista.btGuardar.setEnabled(true);
+                if (vista.btGuardar.isEnabled()) {
+                    vista.btGuardar.setEnabled(true);
+                }
             }
-
         }
         if (e.getSource() == vista.txSerie) {
             if (vista.txSerie.getText().length() < 4) {
@@ -316,11 +324,6 @@ public class ControladorVistaEntregas implements ActionListener, ListSelectionLi
                 int cantidadDeCeros = 4 - cadena.length();
                 vista.txSerie.setText(String.format("%0" + cantidadDeCeros + "d%s", 0, cadena));
             }
-        }
-        if (e.getSource() == vista.txTeorico) {
-            double numero = Double.parseDouble(vista.txTeorico.getText());
-            DecimalFormat formato = new DecimalFormat("#.00");
-            vista.txTeorico.setText(formato.format(numero));
         }
     }
 
@@ -362,7 +365,7 @@ public class ControladorVistaEntregas implements ActionListener, ListSelectionLi
         LocalDate fecha = vista.dcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         lista = ctrl.traerListaEntregasPorFechaSalida(fecha);
         for (Entrega entrega : lista) {
-            if (entrega.getEtapa() == 0){
+            if (entrega.getEtapa() == 0) {
                 modelo.agregarEntregas(entrega);
             }
         }
@@ -382,9 +385,9 @@ public class ControladorVistaEntregas implements ActionListener, ListSelectionLi
         vista.cbMorro.setSelectedItem(entrega.getMorro());
         vista.cbCamion.setSelectedItem(entrega.getCamion());
         vista.txTeorico.setText(entrega.getTeorico() + " ");
-        if (entrega.getEstado()){
+        if (entrega.getEstado()) {
             vista.txRemito.setBackground(Color.WHITE);
-        }else{
+        } else {
             vista.txRemito.setBackground(Color.RED);
         }
     }
@@ -392,10 +395,9 @@ public class ControladorVistaEntregas implements ActionListener, ListSelectionLi
 }
 
 class EntregasTableModel extends AbstractTableModel {
-    
+
     private List<Entrega> entregas;
     private String[] columnNames = {"Cliente", "Toneladas", "Remito"};
-    
 
     public EntregasTableModel() {
         entregas = new ArrayList<>();
@@ -421,14 +423,14 @@ class EntregasTableModel extends AbstractTableModel {
             case 0:
                 return entrega.getCliente().getNombre();
             case 1:
-                return entrega.getTeorico();
+                return formatearImporte(entrega.getTeorico());
             case 2:
                 return entrega.getRemito();
             default:
                 return null;
         }
     }
-
+  
     public Entrega getEntregaAt(int row) {
         return entregas.get(row);
     }
@@ -452,5 +454,10 @@ class EntregasTableModel extends AbstractTableModel {
         // Actualiza los datos en la fila correspondiente (fila en base a tu lógica)
         // Notifica a la tabla que la fila ha sido actualizada
         fireTableRowsUpdated(fila, fila);
+    }
+
+    private String formatearImporte(double importe) {
+        DecimalFormat formato = new DecimalFormat("#,##0.00");
+        return formato.format(importe);
     }
 }

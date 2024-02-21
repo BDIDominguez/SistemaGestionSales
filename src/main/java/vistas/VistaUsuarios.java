@@ -92,17 +92,21 @@ public class VistaUsuarios extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tabla);
 
         btNuevo.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        btNuevo.setMnemonic('n');
         btNuevo.setText("Nuevo");
 
         btEliminar.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        btEliminar.setMnemonic('e');
         btEliminar.setText("Eliminar");
         btEliminar.setEnabled(false);
 
         btGuardar.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        btGuardar.setMnemonic('g');
         btGuardar.setText("Guardar");
         btGuardar.setEnabled(false);
 
         btSalir.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        btSalir.setMnemonic('s');
         btSalir.setText("Salir");
 
         jDesktopPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);

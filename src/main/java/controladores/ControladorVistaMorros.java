@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -65,6 +66,13 @@ public class ControladorVistaMorros implements ActionListener, ListSelectionList
 
         // Agregando los jTextField para escuchar las teclas precionadas
         vista.txNombre.addKeyListener(this);
+        
+        // Agregando la Tabla a escuchar
+        vista.tabla.getSelectionModel().addListSelectionListener(this);
+        vista.tabla.addKeyListener(this);  // Agregar el KeyListener a la tabla
+
+        //Capturando las teclas del jTextArea
+        vista.txObs.addKeyListener(this);
 
     }
 
@@ -212,7 +220,8 @@ public class ControladorVistaMorros implements ActionListener, ListSelectionList
     }
 
     private void mostrarMorro(Morro morro) {
-        vista.txStock.setText(morro.totalMorro() + "");
+
+        vista.txStock.setText(morro.getStock()+ "");
         vista.txCodigo.setText(morro.getCodigo() + "");
         vista.txNombre.setText(morro.getNombre());
         vista.txObs.setText(morro.getDetalles());
@@ -248,7 +257,21 @@ public class ControladorVistaMorros implements ActionListener, ListSelectionList
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        if (e.getSource() == vista.txObs) {
+            if (e.getKeyCode() == KeyEvent.VK_TAB) {
+                // Si la tecla presionada es Tab, establece el foco en jText2
+                vista.chEstado.requestFocusInWindow();
+                e.consume(); // Evita que se inserte un carácter de tabulación en txObs
+            }
+        }
+        if (e.getSource() == vista.tabla) {
+            if (e.getKeyCode() == KeyEvent.VK_TAB && !e.isShiftDown()) {
+                // Si la tecla presionada es Tab y no se mantiene presionado Shift,
+                // establece el foco en el siguiente objeto después de la tabla
+                vista.txNombre.requestFocusInWindow();
+                e.consume(); // Evita que se inserte un carácter de tabulación en la tabla
+            }
+        }
     }
 
     @Override
@@ -289,7 +312,7 @@ class MorroTableModel extends AbstractTableModel {
             case 1:
                 return morro.getNombre();
             case 2:
-                return morro.getStock();
+                return formatearImporte(morro.getStock());
             default:
                 return null;
         }
@@ -313,5 +336,9 @@ class MorroTableModel extends AbstractTableModel {
         this.morros = morros;
         fireTableDataChanged();
     }
-
+    
+    private String formatearImporte(double importe) {
+        DecimalFormat formato = new DecimalFormat("#,##0.00");
+        return formato.format(importe);
+    }
 }

@@ -77,15 +77,19 @@ public class VistaClientes extends javax.swing.JInternalFrame {
         txImporte.setFocusable(false);
 
         btNuevo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btNuevo.setMnemonic('n');
         btNuevo.setText("Nuevo");
 
         btGuardar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btGuardar.setMnemonic('g');
         btGuardar.setText("Guardar");
 
         btSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btSalir.setMnemonic('s');
         btSalir.setText("Salir");
 
         btEliminar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btEliminar.setMnemonic('e');
         btEliminar.setText("Eliminar");
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(

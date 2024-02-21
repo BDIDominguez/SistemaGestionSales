@@ -75,9 +75,11 @@ public class VistaConfirmarOdometro extends javax.swing.JInternalFrame {
         chIgualar.setText("Igualar");
 
         btSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btSalir.setMnemonic('s');
         btSalir.setText("Salir");
 
         btNuevo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btNuevo.setMnemonic('n');
         btNuevo.setText("Nuevo");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -76,9 +76,11 @@ public class VistaConfirmarEntregas extends javax.swing.JInternalFrame {
         txConfirmado.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
         btCargar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btCargar.setMnemonic('c');
         btCargar.setText("Confirmar");
 
         btSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btSalir.setMnemonic('s');
         btSalir.setText("Salir");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

@@ -32,6 +32,8 @@ public class Morro implements Serializable {
     int codigo;
     @Column
     String nombre;
+    // Aumenta el tamaño de la columna DETALLES a 1000 caracteres
+    @Column(length = 1000)
     String detalles;
     double barrido;
     double pileta;

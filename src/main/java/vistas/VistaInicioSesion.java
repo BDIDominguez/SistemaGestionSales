@@ -50,9 +50,11 @@ public class VistaInicioSesion extends javax.swing.JFrame {
         txClave.setText("jPasswordField1");
 
         btIngresar.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        btIngresar.setMnemonic('i');
         btIngresar.setText("Ingresar");
 
         btSalir.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        btSalir.setMnemonic('s');
         btSalir.setText("Salir");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

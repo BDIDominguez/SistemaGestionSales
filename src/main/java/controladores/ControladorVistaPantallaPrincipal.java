@@ -16,6 +16,7 @@ import vistas.VistaCargaMorros;
 import vistas.VistaChoferes;
 import vistas.VistaClientes;
 import vistas.VistaConfirmarEntregas;
+import vistas.VistaConfirmarOdometro;
 import vistas.VistaEntregas;
 import vistas.VistaInicioSesion;
 import vistas.VistaMorros;
@@ -49,6 +50,7 @@ public class ControladorVistaPantallaPrincipal implements ActionListener, MenuLi
         menu.itemCamiones.addActionListener(this);
         menu.itemChoferes.addActionListener(this);
         menu.itemClientes.addActionListener(this);
+        menu.itemOdometro.addActionListener(this);
         
         // Items del menu Proveedores
         menu.itemProveedores.addActionListener(this);
@@ -71,6 +73,11 @@ public class ControladorVistaPantallaPrincipal implements ActionListener, MenuLi
         menu.setExtendedState(JFrame.MAXIMIZED_BOTH);
         menu.setTitle("Sistema de Gestion -- Bienvenido " + usuario.getNombre());
         menu.setVisible(true);
+        
+        // Ocultar los Menus que no se tienen que usar
+        menu.menuProductos.setVisible(false);
+        menu.menuProveedores.setVisible(false);
+        menu.menuUsuarios.setVisible(false);
     }
 
     // METODOS DEL ACTIONLISTENER
@@ -195,6 +202,16 @@ public class ControladorVistaPantallaPrincipal implements ActionListener, MenuLi
             if (comandos.tienePermiso(usuario, obj, "Ingresar")) {
                 VistaClientes vista = new VistaClientes();
                 ControladorVistaClientes trl = new ControladorVistaClientes(menu, vista, comandos,usuario,ctrl,obj);
+                trl.iniciar();
+            } else {
+                JOptionPane.showMessageDialog(menu, "No tienes permiso para ver estas pantalla!!!");
+            }
+        }
+        if (e.getSource() == menu.itemOdometro){
+            Objeto obj = ctrl.traerObjeto(14);
+            if (comandos.tienePermiso(usuario, obj, "Ingresar")) {
+                VistaConfirmarOdometro vista = new VistaConfirmarOdometro();
+                ControladorVistaConfirmarOdometro trl = new ControladorVistaConfirmarOdometro(menu, vista, comandos, usuario ,ctrl, obj);
                 trl.iniciar();
             } else {
                 JOptionPane.showMessageDialog(menu, "No tienes permiso para ver estas pantalla!!!");

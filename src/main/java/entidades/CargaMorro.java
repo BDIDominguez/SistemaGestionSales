@@ -37,6 +37,7 @@ public class CargaMorro implements Serializable {
     int codigo;
     @Column
     int codigoMorro;
+    @Column(length=1000)
     String detalles;
     double barrido;
     double pileta;

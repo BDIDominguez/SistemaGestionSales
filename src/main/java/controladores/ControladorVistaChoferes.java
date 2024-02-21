@@ -9,6 +9,8 @@ import entidades.Objeto;
 import entidades.Usuario;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
@@ -23,7 +25,7 @@ import javax.swing.table.AbstractTableModel;
 import vistas.VistaChoferes;
 import vistas.VistaPantallaPrincipal;
 
-public class ControladorVistaChoferes implements ActionListener, ListSelectionListener, PropertyChangeListener {
+public class ControladorVistaChoferes implements ActionListener, ListSelectionListener, PropertyChangeListener, KeyListener {
 
     VistaPantallaPrincipal menu;
     VistaChoferes vista;
@@ -50,6 +52,10 @@ public class ControladorVistaChoferes implements ActionListener, ListSelectionLi
 
         // Agregando los Tabla a escuchar
         vista.tabla.getSelectionModel().addListSelectionListener(this);
+        vista.tabla.addKeyListener(this);  // Agregar el KeyListener a la tabla
+
+        //Capturando las teclas del jTextArea
+        vista.txObs.addKeyListener(this);
 
     }
 
@@ -204,6 +210,35 @@ public class ControladorVistaChoferes implements ActionListener, ListSelectionLi
         vista.btEliminar.setEnabled(true);
         vista.btGuardar.setEnabled(true);
         vista.btNuevo.setEnabled(true);
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (e.getSource() == vista.txObs) {
+            if (e.getKeyCode() == KeyEvent.VK_TAB) {
+                // Si la tecla presionada es Tab, establece el foco en jText2
+                vista.chEstado.requestFocusInWindow();
+                e.consume(); // Evita que se inserte un carácter de tabulación en txObs
+            }
+        }
+        if (e.getSource() == vista.tabla) {
+            if (e.getKeyCode() == KeyEvent.VK_TAB && !e.isShiftDown()) {
+                // Si la tecla presionada es Tab y no se mantiene presionado Shift,
+                // establece el foco en el siguiente objeto después de la tabla
+                vista.cbCamion.requestFocusInWindow();
+                e.consume(); // Evita que se inserte un carácter de tabulación en la tabla
+            }
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        
     }
 
     

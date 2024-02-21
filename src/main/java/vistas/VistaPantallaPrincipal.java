@@ -12,7 +12,7 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         menuArchivos = new javax.swing.JMenu();
         itemSalir = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        menuProductos = new javax.swing.JMenu();
         menuProveedores = new javax.swing.JMenu();
         itemProveedores = new javax.swing.JMenuItem();
         menuUsuarios = new javax.swing.JMenu();
@@ -20,13 +20,13 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
         itemPermisos = new javax.swing.JMenuItem();
         itemUsuarios = new javax.swing.JMenuItem();
         itemCambiarUsuario = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        menuMorro = new javax.swing.JMenu();
         itemMorros = new javax.swing.JMenuItem();
         itemCargaDiariaMorros = new javax.swing.JMenuItem();
         itemClientes = new javax.swing.JMenuItem();
         itemEntregas = new javax.swing.JMenuItem();
         itemConfirmarEntregas = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        menuCombustible = new javax.swing.JMenu();
         itemCamiones = new javax.swing.JMenuItem();
         itemChoferes = new javax.swing.JMenuItem();
         itemCargaCombustibles = new javax.swing.JMenuItem();
@@ -46,19 +46,23 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
             .addGap(0, 539, Short.MAX_VALUE)
         );
 
+        menuArchivos.setMnemonic('a');
         menuArchivos.setText("Archivos");
         menuArchivos.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
 
         itemSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemSalir.setMnemonic('s');
         itemSalir.setText("Salir");
         menuArchivos.add(itemSalir);
 
         jMenuBar1.add(menuArchivos);
 
-        jMenu2.setText("Productos");
-        jMenu2.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
-        jMenuBar1.add(jMenu2);
+        menuProductos.setMnemonic('p');
+        menuProductos.setText("Productos");
+        menuProductos.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        jMenuBar1.add(menuProductos);
 
+        menuProveedores.setMnemonic('r');
         menuProveedores.setText("Proveedores");
         menuProveedores.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
 
@@ -68,6 +72,7 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(menuProveedores);
 
+        menuUsuarios.setMnemonic('u');
         menuUsuarios.setText("Usuarios");
         menuUsuarios.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
 
@@ -89,52 +94,62 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(menuUsuarios);
 
-        jMenu1.setText("Morros");
-        jMenu1.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        menuMorro.setMnemonic('m');
+        menuMorro.setText("Morros");
+        menuMorro.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
 
         itemMorros.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemMorros.setMnemonic('c');
         itemMorros.setText("Crear Morros");
-        jMenu1.add(itemMorros);
+        menuMorro.add(itemMorros);
 
         itemCargaDiariaMorros.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemCargaDiariaMorros.setMnemonic('p');
         itemCargaDiariaMorros.setText("Producción Diaria");
-        jMenu1.add(itemCargaDiariaMorros);
+        menuMorro.add(itemCargaDiariaMorros);
 
         itemClientes.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemClientes.setMnemonic('l');
         itemClientes.setText("Clientes");
-        jMenu1.add(itemClientes);
+        menuMorro.add(itemClientes);
 
         itemEntregas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemEntregas.setMnemonic('e');
         itemEntregas.setText("Envio a Clientes");
-        jMenu1.add(itemEntregas);
+        menuMorro.add(itemEntregas);
 
         itemConfirmarEntregas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemConfirmarEntregas.setMnemonic('o');
         itemConfirmarEntregas.setText("Confirmar Entrega");
-        jMenu1.add(itemConfirmarEntregas);
+        menuMorro.add(itemConfirmarEntregas);
 
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.add(menuMorro);
 
-        jMenu3.setText("Combustibles");
-        jMenu3.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        menuCombustible.setMnemonic('c');
+        menuCombustible.setText("Combustibles");
+        menuCombustible.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
 
         itemCamiones.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemCamiones.setMnemonic('a');
         itemCamiones.setText("Camiones Existentes");
-        jMenu3.add(itemCamiones);
+        menuCombustible.add(itemCamiones);
 
         itemChoferes.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemChoferes.setMnemonic('h');
         itemChoferes.setText("Choferes Existentes");
-        jMenu3.add(itemChoferes);
+        menuCombustible.add(itemChoferes);
 
         itemCargaCombustibles.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemCargaCombustibles.setMnemonic('r');
         itemCargaCombustibles.setText("Cargas de Combustibles");
-        jMenu3.add(itemCargaCombustibles);
+        menuCombustible.add(itemCargaCombustibles);
 
-        itemOdometro.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_DOWN_MASK));
         itemOdometro.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemOdometro.setMnemonic('t');
         itemOdometro.setText("Control Odometro");
-        jMenu3.add(itemOdometro);
+        menuCombustible.add(itemOdometro);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(menuCombustible);
 
         setJMenuBar(jMenuBar1);
 
@@ -192,16 +207,16 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenuItem itemEntregas;
     public javax.swing.JMenuItem itemMorros;
     public javax.swing.JMenuItem itemObjetos;
-    private javax.swing.JMenuItem itemOdometro;
+    public javax.swing.JMenuItem itemOdometro;
     public javax.swing.JMenuItem itemPermisos;
     public javax.swing.JMenuItem itemProveedores;
     public javax.swing.JMenuItem itemSalir;
     public javax.swing.JMenuItem itemUsuarios;
-    private javax.swing.JMenu jMenu1;
-    public javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     public javax.swing.JMenu menuArchivos;
+    private javax.swing.JMenu menuCombustible;
+    private javax.swing.JMenu menuMorro;
+    public javax.swing.JMenu menuProductos;
     public javax.swing.JMenu menuProveedores;
     public javax.swing.JMenu menuUsuarios;
     // End of variables declaration//GEN-END:variables

@@ -87,18 +87,22 @@ public class VistaCargaMorros extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tabla);
 
         btNuevo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btNuevo.setMnemonic('n');
         btNuevo.setText("Nuevo");
 
         chEstado.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         chEstado.setText("Estado");
 
         btGuardar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btGuardar.setMnemonic('g');
         btGuardar.setText("Guardar");
 
         btEliminar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btEliminar.setMnemonic('e');
         btEliminar.setText("Eliminar");
 
         btSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btSalir.setMnemonic('s');
         btSalir.setText("Salir");
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N

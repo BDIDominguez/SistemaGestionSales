@@ -7,6 +7,7 @@ import entidades.Combustible;
 import entidades.Entrega;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import java.time.LocalDate;
@@ -81,13 +82,9 @@ public class ConsultasJPA {
         try {
             Query query = em.createNativeQuery("SELECT remito FROM entregas ORDER BY remito DESC LIMIT 1");
             Object resultado = query.getSingleResult();
-            if (resultado != null) {
-                // Si hay un resultado, conviértelo a String y devuelve el valor.
-                return resultado.toString();
-            } else {
-                // Si no hay resultados, la tabla podría estar vacía, y puedes manejarlo como desees.
-                return "0001-00000001"; // O lanza una excepción, devuelve un valor predeterminado, etc.
-            }
+            return resultado.toString();
+        }catch (NoResultException e) {   
+            return "01"; // O lanza una excepción, devuelve un valor predeterminado, etc.
         } finally {
             if (em != null && em.isOpen()) {
                 em.close();

@@ -42,7 +42,6 @@ public class VistaEntregas extends javax.swing.JInternalFrame {
         jLabel4 = new javax.swing.JLabel();
         cbMorro = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        txTeorico = new javax.swing.JTextField();
         btNuevo = new javax.swing.JButton();
         btGuardar = new javax.swing.JButton();
         btEliminar = new javax.swing.JButton();
@@ -53,6 +52,7 @@ public class VistaEntregas extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         txRemito = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        txTeorico = new Utilidades.MiCampoDouble();
 
         setTitle("Envio a Clientes");
 
@@ -85,19 +85,20 @@ public class VistaEntregas extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel5.setText("Cantidad Teorica");
 
-        txTeorico.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txTeorico.setText("0,00");
-
         btNuevo.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btNuevo.setMnemonic('n');
         btNuevo.setText("Nuevo");
 
         btGuardar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btGuardar.setMnemonic('g');
         btGuardar.setText("Guardar");
 
         btEliminar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btEliminar.setMnemonic('e');
         btEliminar.setText("Eliminar");
 
         btSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        btSalir.setMnemonic('s');
         btSalir.setText("Salir");
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -138,7 +139,6 @@ public class VistaEntregas extends javax.swing.JInternalFrame {
         jDesktopPane1.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(cbMorro, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(txTeorico, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(btNuevo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(btGuardar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(btEliminar, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -148,6 +148,7 @@ public class VistaEntregas extends javax.swing.JInternalFrame {
         jDesktopPane1.setLayer(jLabel6, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(txRemito, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jLabel7, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(txTeorico, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -170,7 +171,7 @@ public class VistaEntregas extends javax.swing.JInternalFrame {
                             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txTeorico, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txTeorico, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                                 .addGap(13, 13, 13)
                                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -200,7 +201,7 @@ public class VistaEntregas extends javax.swing.JInternalFrame {
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGap(84, 84, 84)
                         .addComponent(jLabel3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 545, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
@@ -229,7 +230,7 @@ public class VistaEntregas extends javax.swing.JInternalFrame {
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbCamion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txTeorico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -287,6 +288,6 @@ public class VistaEntregas extends javax.swing.JInternalFrame {
     public javax.swing.JTable tabla;
     public javax.swing.JTextField txRemito;
     public javax.swing.JTextField txSerie;
-    public javax.swing.JTextField txTeorico;
+    public Utilidades.MiCampoDouble txTeorico;
     // End of variables declaration//GEN-END:variables
 }
