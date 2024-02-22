@@ -25,12 +25,6 @@ public class Pruebas {
 
     public static void main(String[] args) {
         Controladora ctrl = new Controladora();
-        Camion camion = ctrl.traerCamion(2);
-        System.out.println("Odometro del Camion " + camion.getOdometro());
-        System.out.println("Teorico del Camion " + camion.getTeorico());
-        camion.setOdometro(250.00);
-        camion.setTeorico(250.00);
-        ctrl.editarCamion(camion);
-        System.out.println("Se Cambiaron los Datos!!");
+      
     }
 }

@@ -83,6 +83,23 @@ public class Controladora {
         return ctrl.traerListaCargaMorros();
     }
     
+    // -----------------   INVENTARIO MORRO  ------------------
+    public void crearInventarioMorro(InventarioMorro obj){
+        ctrl.crearInventarioMorro(obj);
+    }
+    public void eliminarInventarioMorro(int id){
+        ctrl.eliminarInventarioMorro(id);
+    }
+    public void editarInventarioMorro(InventarioMorro obj){
+        ctrl.editarInventarioMorro(obj);
+    }
+    public InventarioMorro traerInventarioMorro(int id){
+        return ctrl.traerInventarioMorro(id);
+    }
+    public List<InventarioMorro> traerListaInventariosMorros(){
+        return ctrl.traerListaInventariosMorros();
+    }    
+    
     // -----------------   PERMISO   ------------------
     public void crearPermiso(Permiso per){
         ctrl.crearPermiso(per);

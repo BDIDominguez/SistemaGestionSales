@@ -206,7 +206,11 @@ public class ControladorVistaChoferes implements ActionListener, ListSelectionLi
         vista.txNombre.setText(objetoActual.getNombre());
         vista.txObs.setText(objetoActual.getObs());
         vista.chEstado.setSelected(objetoActual.getEstado());
-        vista.cbCamion.setSelectedItem(objetoActual.getCamion());
+        if (objetoActual.getCamion() != null){
+            vista.cbCamion.setSelectedItem(objetoActual.getCamion());
+        }else{
+            JOptionPane.showMessageDialog(vista, "Este Chofer no tiene Asignado ningun camion! \n Recuerde que solo se puede tener un Camion por chofer no se pueden compartir");
+        }
         vista.btEliminar.setEnabled(true);
         vista.btGuardar.setEnabled(true);
         vista.btNuevo.setEnabled(true);
@@ -278,7 +282,13 @@ class ChoferesTableModel extends AbstractTableModel {
             case 1:
                 return obj.getNombre();
             case 2:
-                return obj.getCamion().getPatente();
+                String cadena;
+                if (obj.getCamion() != null){
+                    cadena = obj.getCamion().getPatente();
+                }else{
+                    cadena = "Sin Asignar";
+                }
+                return cadena;
             // return formatearImporte(obj.getTotal()); // Formatear el importe
             default:
                 return null;

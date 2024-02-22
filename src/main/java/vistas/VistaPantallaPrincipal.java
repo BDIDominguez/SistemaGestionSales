@@ -26,6 +26,7 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
         itemClientes = new javax.swing.JMenuItem();
         itemEntregas = new javax.swing.JMenuItem();
         itemConfirmarEntregas = new javax.swing.JMenuItem();
+        itemInventarioMorro = new javax.swing.JMenuItem();
         menuCombustible = new javax.swing.JMenu();
         itemCamiones = new javax.swing.JMenuItem();
         itemChoferes = new javax.swing.JMenuItem();
@@ -123,6 +124,11 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
         itemConfirmarEntregas.setText("Confirmar Entrega");
         menuMorro.add(itemConfirmarEntregas);
 
+        itemInventarioMorro.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemInventarioMorro.setMnemonic('i');
+        itemInventarioMorro.setText("Inventario Morros");
+        menuMorro.add(itemInventarioMorro);
+
         jMenuBar1.add(menuMorro);
 
         menuCombustible.setMnemonic('c');
@@ -205,6 +211,7 @@ public class VistaPantallaPrincipal extends javax.swing.JFrame {
     public javax.swing.JMenuItem itemClientes;
     public javax.swing.JMenuItem itemConfirmarEntregas;
     public javax.swing.JMenuItem itemEntregas;
+    public javax.swing.JMenuItem itemInventarioMorro;
     public javax.swing.JMenuItem itemMorros;
     public javax.swing.JMenuItem itemObjetos;
     public javax.swing.JMenuItem itemOdometro;

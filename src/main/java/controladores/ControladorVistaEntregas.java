@@ -26,11 +26,9 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
 import vistas.VistaEntregas;
 import vistas.VistaPantallaPrincipal;
 
@@ -152,7 +150,7 @@ public class ControladorVistaEntregas implements ActionListener, ListSelectionLi
                     entrega.setFactura("");
                     entrega.setEstado(true);
                     ctrl.crearEntrega(entrega);
-                    JOptionPane.showMessageDialog(vista, "Se Cargo la engtrega de forma correcta!");
+                    //JOptionPane.showMessageDialog(vista, "Se Cargo la engtrega de forma correcta!");
                     cargarTablas();
                     vista.btGuardar.setEnabled(false);
                     vista.btNuevo.setEnabled(true);
@@ -330,7 +328,9 @@ public class ControladorVistaEntregas implements ActionListener, ListSelectionLi
     private void cargarClientes() {
         List<Cliente> lista = ctrl.traerListaClientes();
         for (Cliente cliente : lista) {
-            vista.cbCliente.addItem(cliente);
+            if (cliente.getEstado()){
+                vista.cbCliente.addItem(cliente);
+            }
         }
     }
 
@@ -345,7 +345,9 @@ public class ControladorVistaEntregas implements ActionListener, ListSelectionLi
     private void cargarCamiones() {
         List<Camion> lista = ctrl.traerListaCamiones();
         for (Camion camion : lista) {
-            vista.cbCamion.addItem(camion);
+            if (camion.getEstado()){
+                vista.cbCamion.addItem(camion);
+            }
         }
 
     }
@@ -353,7 +355,7 @@ public class ControladorVistaEntregas implements ActionListener, ListSelectionLi
     private void modelarTabla() {
         vista.tabla.setModel(modelo);
         vista.tabla.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // 538
-        vista.tabla.getColumnModel().getColumn(0).setPreferredWidth(298);
+        vista.tabla.getColumnModel().getColumn(0).setPreferredWidth(297);
         vista.tabla.getColumnModel().getColumn(1).setPreferredWidth(90);
         vista.tabla.getColumnModel().getColumn(2).setPreferredWidth(150);
         cargarTablas();

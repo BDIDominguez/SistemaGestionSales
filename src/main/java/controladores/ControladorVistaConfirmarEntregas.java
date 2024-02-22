@@ -16,6 +16,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -99,7 +100,7 @@ public class ControladorVistaConfirmarEntregas implements ActionListener, Proper
                 JOptionPane.showMessageDialog(vista, "No tienes permiso para Confirmar Entregas");
             }
         }
-        if (e.getSource() == vista.cbCliente){
+        if (e.getSource() == vista.cbCliente) {
             cargarTabla();
         }
     }
@@ -115,7 +116,6 @@ public class ControladorVistaConfirmarEntregas implements ActionListener, Proper
             int fila = vista.tabla.getSelectedRow();
             if (fila != -1) {
                 objetoActual = modelo.getDatoAt(fila);
-                vista.btCargar.setEnabled(true);
                 mostrarObjeto();
             }
         }
@@ -142,6 +142,14 @@ public class ControladorVistaConfirmarEntregas implements ActionListener, Proper
     private void cargarTabla() {
         Cliente cliente = (Cliente) vista.cbCliente.getSelectedItem();
         List<Entrega> lista = ctrl.traerEntregaPorClienteAConfirmar(cliente);
+        // Usar un iterador para evitar ConcurrentModificationException
+        Iterator<Entrega> iterator = lista.iterator();
+        while (iterator.hasNext()) {
+            Entrega entrega = iterator.next();
+            if (!entrega.getEstado()) {
+                iterator.remove(); // Eliminar usando el iterador
+            }
+        }
         modelo.setData(lista);
     }
 

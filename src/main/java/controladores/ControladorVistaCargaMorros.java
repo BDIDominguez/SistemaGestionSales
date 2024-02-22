@@ -166,6 +166,9 @@ public class ControladorVistaCargaMorros implements ActionListener, ListSelectio
                 Morro morro = ctrl.traerMorro(cargaMorro.getCodigoMorro());
                 morro.quitarDelMorro(cargaMorro.getTotal(), cargaMorro.getPileta(), cargaMorro.getBarrido()); // Se quita lo que supuestamente este movimiento Agrego
                 ctrl.editarMorro(morro); //Se Guarda el Morro con el Stock Corregido
+                vista.btEliminar.setEnabled(false);
+                vista.btGuardar.setEnabled(false);
+                vista.btNuevo.setEnabled(true);
                 cargarTabla();
             } else {
                 if (comandos.tienePermiso(usuario, obj, "Borrar")) {

@@ -6,6 +6,7 @@ import controladores.ControladorVistaChoferes;
 import controladores.ControladorVistaClientes;
 import controladores.ControladorVistaConfirmarEntregas;
 import controladores.ControladorVistaConfirmarOdometro;
+import controladores.ControladorVistaInventarioMorros;
 import controladores.ControladorVistaMorros;
 import entidades.ComandosComunes;
 import entidades.Controladora;
@@ -22,6 +23,7 @@ import vistas.VistaChoferes;
 import vistas.VistaClientes;
 import vistas.VistaConfirmarEntregas;
 import vistas.VistaConfirmarOdometro;
+import vistas.VistaInventarioMorros;
 import vistas.VistaMorros;
 import vistas.VistaPantallaPrincipal;
 
@@ -87,10 +89,17 @@ public class PruebaVista {
         ControladorVistaClientes control = new ControladorVistaClientes(menu, vista, comandos, usuario ,ctrl, obj);
         control.iniciar();
         */
+        /*
         Objeto obj = ctrl.traerObjeto(14);
         VistaConfirmarOdometro vista = new VistaConfirmarOdometro();
         ControladorVistaConfirmarOdometro control = new ControladorVistaConfirmarOdometro(menu, vista, comandos, usuario ,ctrl, obj);
         control.iniciar();
+        */
+        Objeto obj = ctrl.traerObjeto(15);
+        VistaInventarioMorros vista = new VistaInventarioMorros();
+        ControladorVistaInventarioMorros control = new ControladorVistaInventarioMorros(menu, vista, comandos, usuario ,ctrl, obj);
+        control.iniciar();
+        
     }
     
 }

@@ -33,7 +33,7 @@ public class ControladorVistaMorros implements ActionListener, ListSelectionList
     Usuario usuario;
     Controladora ctrl = new Controladora();
     Objeto obj;
-    MorroTableModel modeloMorro = new MorroTableModel();
+    InventarioTableModel modeloMorro = new InventarioTableModel();
 
     public ControladorVistaMorros(VistaPantallaPrincipal menu, VistaMorros vista, Usuario usuario, Objeto obj) {
         this.menu = menu;
@@ -66,7 +66,7 @@ public class ControladorVistaMorros implements ActionListener, ListSelectionList
 
         // Agregando los jTextField para escuchar las teclas precionadas
         vista.txNombre.addKeyListener(this);
-        
+
         // Agregando la Tabla a escuchar
         vista.tabla.getSelectionModel().addListSelectionListener(this);
         vista.tabla.addKeyListener(this);  // Agregar el KeyListener a la tabla
@@ -119,7 +119,7 @@ public class ControladorVistaMorros implements ActionListener, ListSelectionList
                 vista.chEstado.setEnabled(true);
                 vista.btGuardar.setEnabled(true);
                 vista.txNombre.requestFocus();
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(vista, "No tienes permiso para crear Nuevos");
             }
         }
@@ -152,24 +152,27 @@ public class ControladorVistaMorros implements ActionListener, ListSelectionList
             vista.btGuardar.setEnabled(false);
         }
         if (e.getSource() == vista.btEliminar) {
-           if (comandos.tienePermiso(usuario, obj, "Eliminar") && usuario.getTipo() != EnumUsuario.SUPERADMIN) {
-                Morro editado = new Morro();
-                editado.setCodigo(Integer.parseInt(vista.txCodigo.getText()));
-                editado.setNombre(vista.txNombre.getText());
-                editado.setDetalles(vista.txObs.getText());
-                editado.setEstado(false);
-                ctrl.editarMorro(editado);
+            if (usuario.getTipo() == EnumUsuario.SUPERADMIN) {
+                ctrl.eliminarMorro(Integer.parseInt(vista.txCodigo.getText()));
                 cargarTabla();
             } else {
-                if (usuario.getTipo() != EnumUsuario.SUPERADMIN) {
-                    ctrl.eliminarMorro(Integer.parseInt(vista.txCodigo.getText()));
+                if (comandos.tienePermiso(usuario, obj, "Borrar")) {
+                    Morro editado = new Morro();
+                    editado.setCodigo(Integer.parseInt(vista.txCodigo.getText()));
+                    editado.setNombre(vista.txNombre.getText());
+                    editado.setDetalles(vista.txObs.getText());
+                    editado.setEstado(false);
+                    ctrl.editarMorro(editado);
+                    vista.chEstado.setText("Desactivado");
+                    vista.chEstado.setBackground(Color.RED);
+                    vista.chEstado.setSelected(false);
                     cargarTabla();
                 } else {
                     JOptionPane.showMessageDialog(vista, "No tienes permiso para Eliminar el Morro.");
                 }
             }
             vista.btEliminar.setEnabled(false);
-        }
+        } // Boton Eliminar
         if (e.getSource() == vista.chEstado) {
             if (vista.chEstado.isSelected()) {
                 vista.chEstado.setText("Activo");
@@ -221,7 +224,7 @@ public class ControladorVistaMorros implements ActionListener, ListSelectionList
 
     private void mostrarMorro(Morro morro) {
 
-        vista.txStock.setText(morro.getStock()+ "");
+        vista.txStock.setText(morro.getStock() + "");
         vista.txCodigo.setText(morro.getCodigo() + "");
         vista.txNombre.setText(morro.getNombre());
         vista.txObs.setText(morro.getDetalles());
@@ -281,12 +284,12 @@ public class ControladorVistaMorros implements ActionListener, ListSelectionList
 
 }  // Fin Clase Controlador
 
-class MorroTableModel extends AbstractTableModel {
+class InventarioTableModel extends AbstractTableModel {
 
     private List<Morro> morros;
     private String[] columnNames = {"Codigo", "Nombre", "Stock"};
 
-    public MorroTableModel() {
+    public InventarioTableModel() {
         morros = new ArrayList<>();
 
     }
@@ -336,7 +339,7 @@ class MorroTableModel extends AbstractTableModel {
         this.morros = morros;
         fireTableDataChanged();
     }
-    
+
     private String formatearImporte(double importe) {
         DecimalFormat formato = new DecimalFormat("#,##0.00");
         return formato.format(importe);

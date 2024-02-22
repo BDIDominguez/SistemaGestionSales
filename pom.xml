@@ -7,7 +7,7 @@
     <packaging>jar</packaging>
     
     <dependencies>
-       <dependency>
+        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.17</version>
@@ -30,7 +30,7 @@
             <version>4.0.2</version>
             <scope>provided</scope>
         </dependency>
-       <!--
+        <!--
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
@@ -55,7 +55,6 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <exec.mainClass>abl.sistemagestion.SistemaGestion</exec.mainClass>
-        <maven.compiler.release>18</maven.compiler.release>
     </properties>
     
     <build>

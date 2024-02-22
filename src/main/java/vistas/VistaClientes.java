@@ -59,7 +59,7 @@ public class VistaClientes extends javax.swing.JInternalFrame {
         jLabel2.setText("Nombre");
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel3.setText("Distancia de Envio");
+        jLabel3.setText("Distancia de Envio (Km)");
 
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel4.setText("CUIT");

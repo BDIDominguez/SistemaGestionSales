@@ -19,6 +19,7 @@ import vistas.VistaConfirmarEntregas;
 import vistas.VistaConfirmarOdometro;
 import vistas.VistaEntregas;
 import vistas.VistaInicioSesion;
+import vistas.VistaInventarioMorros;
 import vistas.VistaMorros;
 import vistas.VistaPantallaPrincipal;
 import vistas.VistaPermisos;
@@ -59,6 +60,7 @@ public class ControladorVistaPantallaPrincipal implements ActionListener, MenuLi
         menu.itemMorros.addActionListener(this);
         menu.itemEntregas.addActionListener(this);
         menu.itemCargaDiariaMorros.addActionListener(this);
+        menu.itemInventarioMorro.addActionListener(this);
         
         // Items del menu Combustibles
         menu.itemCargaCombustibles.addActionListener(this);
@@ -77,7 +79,7 @@ public class ControladorVistaPantallaPrincipal implements ActionListener, MenuLi
         // Ocultar los Menus que no se tienen que usar
         menu.menuProductos.setVisible(false);
         menu.menuProveedores.setVisible(false);
-        menu.menuUsuarios.setVisible(false);
+        //menu.menuUsuarios.setVisible(false);
     }
 
     // METODOS DEL ACTIONLISTENER
@@ -212,6 +214,16 @@ public class ControladorVistaPantallaPrincipal implements ActionListener, MenuLi
             if (comandos.tienePermiso(usuario, obj, "Ingresar")) {
                 VistaConfirmarOdometro vista = new VistaConfirmarOdometro();
                 ControladorVistaConfirmarOdometro trl = new ControladorVistaConfirmarOdometro(menu, vista, comandos, usuario ,ctrl, obj);
+                trl.iniciar();
+            } else {
+                JOptionPane.showMessageDialog(menu, "No tienes permiso para ver estas pantalla!!!");
+            }
+        }
+        if (e.getSource() == menu.itemInventarioMorro){
+            Objeto obj = ctrl.traerObjeto(15);
+            if (comandos.tienePermiso(usuario, obj, "Ingresar")) {
+                VistaInventarioMorros vista = new VistaInventarioMorros();
+                ControladorVistaInventarioMorros trl = new ControladorVistaInventarioMorros(menu, vista, comandos, usuario ,ctrl, obj);
                 trl.iniciar();
             } else {
                 JOptionPane.showMessageDialog(menu, "No tienes permiso para ver estas pantalla!!!");

@@ -60,7 +60,6 @@ public class ControladorVistaCamiones implements ActionListener, ListSelectionLi
         vista.btGuardar.setEnabled(false);
         vista.btEliminar.setEnabled(false);
         configuraTabla();
-
     }
 
     @Override

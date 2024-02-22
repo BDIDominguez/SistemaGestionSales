@@ -84,6 +84,13 @@ public class ControladorVistaInicioSesion implements ActionListener, FocusListen
         user.setEstado(false);
         Controladora persis = new Controladora();
         List<Usuario> lista = persis.traerListaUsuarios();
+        for (Usuario usuario1 : lista) {
+            System.out.println("Codigo " + usuario1.getCodigo());
+            System.out.println("Nombre " + usuario1.getNombre());
+            System.out.println("Clave " + usuario1.getClave());
+            System.out.println("Estado " + usuario1.getEstado());
+            System.out.println("Tipo " + usuario1.getTipo());
+        }
         for (Usuario usuario : lista) {
             if (usuario.getNombre().equals(vista.txNombre.getText().trim()) && usuario.getClave().equals(vista.txClave.getText().trim())) {
                 user = usuario;
@@ -92,7 +99,7 @@ public class ControladorVistaInicioSesion implements ActionListener, FocusListen
             }
         }
         usuario = user;
-        if (existe && user.getEstado()) {
+        if (existe && usuario.getEstado()) {
             if (menu == null){
                 VistaPantallaPrincipal menu = new VistaPantallaPrincipal();
                 ControladorVistaPantallaPrincipal ctrl = new ControladorVistaPantallaPrincipal(menu, user);

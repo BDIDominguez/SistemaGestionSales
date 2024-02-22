@@ -7,6 +7,7 @@ import entidades.Chofer;
 import entidades.Cliente;
 import entidades.Combustible;
 import entidades.Entrega;
+import entidades.InventarioMorro;
 import entidades.Morro;
 import entidades.Objeto;
 import entidades.Permiso;
@@ -44,6 +45,7 @@ public class ControladoraPersistencia {
     ConsultasJPA consultasJpa;
     CargaMorroJpaController cargaMorroJpa;
     CamionOdometroJpaController odometroJpa;
+    InventarioMorroJpaController invMorroJpa;
 
     public ControladoraPersistencia() {
         EntityManagerFactory emf = getEntityManagerFactory();
@@ -60,7 +62,7 @@ public class ControladoraPersistencia {
         consultasJpa = new ConsultasJPA(emf);
         cargaMorroJpa = new CargaMorroJpaController(emf);
         odometroJpa = new CamionOdometroJpaController(emf);
-    
+        invMorroJpa = new InventarioMorroJpaController (emf);
     }
     // ----------------- OTRAS CONSULTAS -------------
     public LocalDate consultarFechaServidor(){
@@ -153,6 +155,36 @@ public class ControladoraPersistencia {
     public List<CargaMorro> traerListaCargaMorros() {
         return cargaMorroJpa.findCargaMorroEntities();
     }
+    
+    // -----------------   InventarioMorro ------------------
+    public void crearInventarioMorro(InventarioMorro obj) {
+        invMorroJpa.create(obj);
+    }
+
+    public void eliminarInventarioMorro(int id) {
+        try {
+            invMorroJpa.destroy(id);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void editarInventarioMorro(InventarioMorro obj) {
+        try {
+            invMorroJpa.edit(obj);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public InventarioMorro traerInventarioMorro(int id) {
+        return invMorroJpa.findInventarioMorro(id);
+    }
+
+    public List<InventarioMorro> traerListaInventariosMorros() {
+        return invMorroJpa.findInventarioMorroEntities();
+    }
+    
 
     // -----------------   PERMISO ------------------
     public void crearPermiso(Permiso per) {

@@ -19,11 +19,12 @@
     <class>entidades.Morro</class>
     <class>entidades.CargaMorro</class>
     <class>entidades.CamionOdometro</class>
+    <class>entidades.InventarioMorro</class>
     <properties>
-      <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sistemaGestion?zeroDateTimeBehavior=CONVERT_TO_NULL&amp;serverTimezone=America/Argentina/Buenos_Aires"/>
-      <property name="jakarta.persistence.jdbc.user" value="dario"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://viaduct.proxy.rlwy.net:28434/railway?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
+      <property name="jakarta.persistence.jdbc.user" value="root"/>
       <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-      <property name="jakarta.persistence.jdbc.password" value="Dario260983"/>
+      <property name="jakarta.persistence.jdbc.password" value="4HfCa-BHgB6hEb11AcCA4-15AD1BhH41"/>
       <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
       <property name="eclipselink.jdbc.timezone" value="America/Argentina/Buenos_Aires"/>
     </properties>
